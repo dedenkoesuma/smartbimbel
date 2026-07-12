@@ -1,0 +1,163 @@
+/* =========================================================
+   SHARED STYLESHEET — Bimbel Smart
+   Dipakai di semua halaman (index, tentang-kami, layanan, galeri, blog).
+   Isinya: design tokens, reset dasar, navbar, mobile menu, tombol,
+   eyebrow/section-head, footer, dan animasi reveal.
+   Gaya yang KHUSUS per halaman (banner, program card, blog grid, dst)
+   tetap ditulis di <style> masing-masing file HTML.
+========================================================= */
+
+:root{
+  --ink:#12193B;
+  --ink-soft:#5A6088;
+  --blue:#2C3E9E;
+  --blue-light:#3E52C4;
+  --blue-deep:#141B4D;
+  --blue-tint:#EEF1FC;
+  --gold:#FFB703;
+  --gold-deep:#F08C00;
+  --white:#FFFFFF;
+  --line:rgba(18,25,59,.09);
+  --shadow:0 20px 50px -20px rgba(20,27,77,.25);
+  --radius-lg:28px;
+  --radius-md:18px;
+  --radius-sm:12px;
+  --font-display:'Baloo 2', system-ui, sans-serif;
+  --font-body:'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font-body);
+  color:var(--ink);
+  background:var(--white);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;}
+section{position:relative;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+h1,h2,h3,h4{font-family:var(--font-display);line-height:1.15;color:var(--ink);}
+
+.hl{position:relative;display:inline-block;white-space:nowrap;}
+.hl svg{position:absolute;left:-4%;bottom:-.06em;width:108%;height:.5em;z-index:-1;}
+.hl.gold svg path{fill:#FFD877;}
+.hl.blue-ink{color:var(--blue);}
+
+.hl{position:relative;display:inline-block;white-space:nowrap;}
+.hl svg{position:absolute;left:-4%;bottom:-.06em;width:108%;height:.5em;z-index:-1;}
+.hl.gold svg path{fill:#FFD877;}
+.hl.blue-ink{color:var(--blue);}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;width:fit-content;align-self:flex-start;
+  font-family:var(--font-body);font-weight:700;font-size:13px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--blue);
+  background:var(--blue-tint);
+  padding:8px 16px;border-radius:100px;margin-bottom:18px;
+}
+.eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);}
+.eyebrow.on-dark{background:rgba(255,255,255,.12);color:#FFD877;}
+.eyebrow.center{margin-inline:auto;}
+
+.section-head{max-width:640px;margin-bottom:52px;}
+.section-head.center{margin-inline:auto;text-align:center;}
+.section-head h2{font-size:clamp(28px,3.6vw,40px);margin-bottom:14px;}
+.section-head p{color:var(--ink-soft);font-size:16.5px;}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:15px 30px;border-radius:100px;font-weight:700;font-size:15px;
+  transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+  white-space:nowrap;
+}
+.btn-primary{background:var(--gold);color:var(--blue-deep);box-shadow:0 12px 26px -8px rgba(255,183,3,.6);}
+.btn-primary:hover{background:var(--gold-deep);transform:translateY(-2px);}
+.btn-outline{background:transparent;border:2px solid var(--blue);color:var(--blue);}
+.btn-outline:hover{background:var(--blue);color:var(--white);transform:translateY(-2px);}
+.btn-outline-light{background:transparent;border:2px solid rgba(255,255,255,.55);color:var(--white);}
+.btn-outline-light:hover{background:rgba(255,255,255,.15);border-color:#fff;}
+.btn-sm{padding:11px 22px;font-size:14px;}
+.btn-block{width:100%;}
+.link-arrow{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--blue);font-size:14.5px;}
+.link-arrow svg{width:15px;height:15px;transition:transform .2s;}
+.link-arrow:hover svg{transform:translateX(4px);}
+
+/* ============ NAVBAR ============ */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+nav{
+  max-width:1180px;margin:0 auto;padding:16px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:21px;}
+.logo-mark{
+  width:38px;height:38px;border-radius:11px;background:linear-gradient(145deg,var(--blue-light),var(--blue));
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.logo-mark svg{width:20px;height:20px;}
+.logo span{color:var(--gold);}
+
+.nav-links{display:flex;align-items:center;gap:36px;}
+.nav-links a{font-weight:600;font-size:15px;color:var(--ink);opacity:.8;transition:opacity .15s, color .15s;}
+.nav-links a:hover{opacity:1;color:var(--blue);}
+.nav-links a.active{opacity:1;color:var(--blue);position:relative;}
+.nav-links a.active::after{
+  content:'';position:absolute;left:0;right:0;bottom:-8px;height:3px;border-radius:3px;background:var(--gold);
+}
+.nav-cta{display:flex;align-items:center;gap:18px;}
+.burger{display:none;flex-direction:column;gap:5px;padding:10px;margin:-10px -6px -10px 0;}
+.burger span{width:24px;height:2.5px;background:var(--ink);border-radius:2px;transition:.25s;}
+
+/* Mobile nav drawer */
+.mobile-nav{
+  position:fixed;inset:0;background:#fff;z-index:200;
+  display:flex;flex-direction:column;padding:24px;transform:translateX(100%);
+  transition:transform .3s ease;
+}
+.mobile-nav.open{transform:translateX(0);}
+.mobile-nav-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;}
+.mobile-nav a{font-size:20px;font-weight:700;padding:14px 0;border-bottom:1px solid var(--line);}
+.mobile-nav a.active{color:var(--blue);}
+.mobile-nav .btn{margin-top:20px;}
+
+/* ============ FOOTER ============ */
+footer{background:var(--blue-deep);color:rgba(255,255,255,.82);padding:70px 0 26px;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1.2fr;gap:50px;margin-bottom:50px;}
+.footer-logo{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:20px;color:#fff;margin-bottom:16px;}
+.footer-logo span{color:var(--gold);}
+.footer-about p{font-size:14.5px;line-height:1.7;max-width:340px;}
+.footer-col h4{font-family:var(--font-body);font-size:15px;color:#fff;margin-bottom:18px;font-weight:700;}
+.footer-col ul{display:grid;gap:12px;}
+.footer-col a{font-size:14.5px;transition:color .2s;}
+.footer-col a:hover{color:var(--gold);}
+.newsletter-form{display:flex;gap:0;margin-top:6px;border-radius:100px;overflow:hidden;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);}
+.newsletter-form input{flex:1;background:transparent;border:none;padding:13px 18px;color:#fff;font-size:14px;font-family:inherit;}
+.newsletter-form input::placeholder{color:rgba(255,255,255,.5);}
+.newsletter-form input:focus{outline:none;}
+.newsletter-form button{background:var(--gold);color:var(--blue-deep);padding:0 18px;display:flex;align-items:center;justify-content:center;}
+.newsletter-form button svg{width:17px;height:17px;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:24px;text-align:center;font-size:13.5px;color:rgba(255,255,255,.55);}
+
+/* ============ REVEAL ANIMATION ============ */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  .reveal{transition:none;opacity:1;transform:none;}
+}
+
+/* ============ RESPONSIVE NAVBAR (berlaku di semua halaman) ============ */
+@media (max-width:980px){
+  .nav-links{display:none;}
+  .burger{display:flex;}
+  .nav-cta .btn-primary{display:none;}
+}
