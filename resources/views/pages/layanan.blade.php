@@ -99,7 +99,8 @@
     width:52px;height:52px;border-radius:14px;background:var(--blue-tint);display:flex;align-items:center;justify-content:center;margin-bottom:18px;
   }
   .addon-icon svg{width:24px;height:24px;color:var(--blue);}
-  .addon-card h4{font-size:17px;margin-bottom:8px;}
+  .addon-card h4{font-size:17px;margin-bottom:6px;}
+  .addon-tagline{font-size:12.5px;font-weight:700;color:var(--blue);margin-bottom:10px;}
   .addon-card p{font-size:14px;color:var(--ink-soft);}
 
   /* ============ CARA KERJA ============ */
@@ -198,6 +199,7 @@
       <div class="banner-copy reveal">
         <div class="banner-dots"></div>
         <div class="breadcrumb"><a href="{{ route('home') }}#home">Home</a><span>/</span><span class="current">Layanan</span></div>
+        <span class="eyebrow">Layanan Kami</span>
         <h1>Program Belajar untuk Setiap Jenjang Pendidikan</h1>
         <p class="lead">Dari SD hingga persiapan UTBK, setiap program kami rancang agar sesuai kebutuhan, kemampuan, dan gaya belajar anak Anda.</p>
         <div class="banner-chips">
@@ -253,7 +255,7 @@
           </ul>
           <div class="pd-footer">
             <div class="pd-price"><strong>Mulai Rp350rb</strong><span>per bulan (estimasi)</span></div>
-            <a href="{{ route('home') }}#kontak" class="btn btn-outline btn-sm">Konsultasi Program Ini</a>
+            <a href="{{ route('kontak') }}#form-kontak" class="btn btn-outline btn-sm">Konsultasi Program Ini</a>
           </div>
         </div>
       </div>
@@ -276,7 +278,7 @@
           </ul>
           <div class="pd-footer">
             <div class="pd-price"><strong>Mulai Rp450rb</strong><span>per bulan (estimasi)</span></div>
-            <a href="{{ route('home') }}#kontak" class="btn btn-outline btn-sm">Konsultasi Program Ini</a>
+            <a href="{{ route('kontak') }}#form-kontak" class="btn btn-outline btn-sm">Konsultasi Program Ini</a>
           </div>
         </div>
       </div>
@@ -299,7 +301,76 @@
           </ul>
           <div class="pd-footer">
             <div class="pd-price"><strong>Mulai Rp550rb</strong><span>per bulan (estimasi)</span></div>
-            <a href="{{ route('home') }}#kontak" class="btn btn-outline btn-sm">Konsultasi Program Ini</a>
+            <a href="{{ route('kontak') }}#form-kontak" class="btn btn-outline btn-sm">Konsultasi Program Ini</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="program-detail reveal">
+        <div class="pd-media">
+          <img src="https://images.pexels.com/photos/6684209/pexels-photo-6684209.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Persiapan TOEFL dan IELTS (foto stok)">
+          <span class="pd-badge">TOEFL &amp; IELTS</span>
+        </div>
+        <div class="pd-body">
+          <div class="pd-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.9L22 9.5l-5.3 4.8L18 22l-6-3.6L6 22l1.3-7.7L2 9.5l7.1-.6L12 2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+          <h3>TOEFL &amp; IELTS Preparation</h3>
+          <p class="pd-tagline">Persiapan Sertifikasi Bahasa Inggris Internasional</p>
+          <p class="desc">Program persiapan TOEFL dan IELTS dengan pembelajaran strategi pengerjaan soal, latihan intensif, serta simulasi tes (Mock Test) untuk membantu peserta mencapai target skor yang dibutuhkan untuk kuliah, beasiswa, karier, maupun studi ke luar negeri.</p>
+          <ul class="pd-features">
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Strategi pengerjaan soal</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Latihan intensif</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Simulasi tes (Mock Test)</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Target skor sesuai kebutuhan</li>
+          </ul>
+          <div class="pd-footer">
+            <div class="pd-price"><strong>Konsultasi</strong><span>hubungi kami untuk info biaya</span></div>
+            <a href="{{ route('kontak') }}#form-kontak" class="btn btn-outline btn-sm">Konsultasi Program Ini</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="program-detail reveal">
+        <div class="pd-media">
+          <img src="https://images.pexels.com/photos/29242202/pexels-photo-29242202.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Kelas Bahasa Inggris (foto stok)">
+          <span class="pd-badge">Bahasa Inggris</span>
+        </div>
+        <div class="pd-body">
+          <div class="pd-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h11v11H4z" stroke="currentColor" stroke-width="1.8"/><path d="M9 5V2m0 3.5C6 6 4 8.5 4 11.5M15 5c3 1 5 3.5 5 6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          <h3>Bahasa Inggris</h3>
+          <p class="pd-tagline">Speaking, Listening, Reading, Writing &amp; Grammar</p>
+          <p class="desc">Program Bahasa Inggris untuk siswa dan umum yang berfokus pada pengembangan Speaking, Listening, Reading, Writing, Grammar, dan Vocabulary, guna membangun kompetensi berbahasa yang unggul untuk kebutuhan akademik, karier, dan komunikasi internasional.</p>
+          <ul class="pd-features">
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Speaking &amp; Listening</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Reading &amp; Writing</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Grammar &amp; Vocabulary</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Untuk siswa &amp; umum</li>
+          </ul>
+          <div class="pd-footer">
+            <div class="pd-price"><strong>Konsultasi</strong><span>hubungi kami untuk info biaya</span></div>
+            <a href="{{ route('kontak') }}#form-kontak" class="btn btn-outline btn-sm">Konsultasi Program Ini</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="program-detail reveal">
+        <div class="pd-media">
+          <img src="https://images.pexels.com/photos/5992912/pexels-photo-5992912.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Kelas Bahasa Mandarin (foto stok)">
+          <span class="pd-badge">Bahasa Mandarin</span>
+        </div>
+        <div class="pd-body">
+          <div class="pd-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.4 8.4 0 01-8.5 8.5 8.6 8.6 0 01-4-1L3 20l1-5.5a8.4 8.4 0 01-1-4A8.4 8.4 0 0111.5 2 8.6 8.6 0 0121 11.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+          <h3>Bahasa Mandarin</h3>
+          <p class="pd-tagline">Listening, Speaking, Reading &amp; Writing</p>
+          <p class="desc">Program Bahasa Mandarin untuk siswa dan umum, dengan pembelajaran listening, speaking, reading, dan writing yang dirancang untuk membangun kemampuan komunikasi secara percaya diri untuk kebutuhan pendidikan, karier, bisnis, dan komunikasi global.</p>
+          <ul class="pd-features">
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Listening &amp; Speaking</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Reading &amp; Writing</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Untuk siswa &amp; umum</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Percaya diri berkomunikasi</li>
+          </ul>
+          <div class="pd-footer">
+            <div class="pd-price"><strong>Konsultasi</strong><span>hubungi kami untuk info biaya</span></div>
+            <a href="{{ route('kontak') }}#form-kontak" class="btn btn-outline btn-sm">Konsultasi Program Ini</a>
           </div>
         </div>
       </div>
@@ -326,11 +397,6 @@
         <div class="addon-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="8" cy="9" r="3" stroke="currentColor" stroke-width="1.7"/><circle cx="17" cy="9" r="3" stroke="currentColor" stroke-width="1.7"/><path d="M2 20c0-3 2.7-5 6-5s6 2 6 5M11 20c0-3 2.7-5 6-5s6 2 6 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
         <h4>Kelompok Kecil</h4>
         <p>Belajar bersama 3–5 teman sebaya, tetap fokus namun lebih hemat dan seru.</p>
-      </div>
-      <div class="addon-card">
-        <div class="addon-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h11v11H4z" stroke="currentColor" stroke-width="1.6"/><path d="M9 5V2m0 3.5C6 6 4 8.5 4 11.5M15 5c3 1 5 3.5 5 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-        <h4>Kelas Bahasa Inggris</h4>
-        <p>Penguatan speaking, grammar, dan writing untuk bekal akademik maupun percakapan sehari-hari.</p>
       </div>
       <div class="addon-card">
         <div class="addon-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.9L22 9.5l-5.3 4.8L18 22l-6-3.6L6 22l1.3-7.7L2 9.5l7.1-.6L12 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
@@ -424,7 +490,7 @@
       <h2>Siap Bantu Anak Anda Belajar Lebih Percaya Diri?</h2>
       <p>Konsultasikan kebutuhan belajarnya sekarang, gratis dan tanpa komitmen.</p>
       <div class="cta-actions">
-        <a href="{{ route('home') }}#kontak" class="btn btn-primary">Konsultasi Gratis</a>
+        <a href="{{ route('kontak') }}#form-kontak" class="btn btn-primary">Konsultasi Gratis</a>
         <a href="{{ route('tentang-kami') }}" class="btn btn-outline-light">Kenali Kami Lebih Jauh</a>
       </div>
     </div>
