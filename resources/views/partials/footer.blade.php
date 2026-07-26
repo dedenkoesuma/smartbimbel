@@ -1,14 +1,9 @@
-{{--
-    PARTIAL: FOOTER
-    Dipanggil dari layouts/app.blade.php pakai @include('partials.footer')
---}}
 <footer>
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-about">
         <div class="footer-logo">
-          <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3L2 8l10 5 10-5-10-5z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
-          Bimbel<span>Smart</span>
+          <img src="{{ asset('assets/logo.png') }}" alt="Logo Bimbel Smart" style="height: 50px; width: auto;">
         </div>
         <p>Bimbingan belajar terpercaya yang mengedepankan metode belajar menyenangkan dan hasil yang maksimal. Bergabunglah dengan ribuan siswa sukses lainnya.</p>
       </div>
