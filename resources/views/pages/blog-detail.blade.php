@@ -1,130 +1,6 @@
 @extends('layouts.app')
 
 @php
-  /*
-    Data artikel masih statis (belum ada tabel/model Post di database).
-    Kalau nanti sudah ada Post model, blok @php ini tinggal dihapus dan
-    ganti pemanggilan di route/controller pakai Post::where('slug', $slug)->firstOrFail().
-  */
-  $posts = [
-    [
-      'slug' => '5-kebiasaan-kecil-bikin-anak-semangat-belajar',
-      'category' => 'tips',
-      'title' => '5 Kebiasaan Kecil yang Bikin Anak Makin Semangat Belajar',
-      'date' => '28 Jun 2026',
-      'read_time' => '5 min baca',
-      'image' => 'https://images.pexels.com/photos/9572630/pexels-photo-9572630.jpeg?auto=compress&cs=tinysrgb&w=1200',
-      'image_alt' => 'Dua siswa belajar bersama di perpustakaan (foto stok)',
-      'excerpt' => 'Kadang yang dibutuhkan bukan jadwal belajar yang lebih ketat, tapi kebiasaan kecil yang tepat.',
-      'content' => [
-        'Banyak orang tua mengira anak yang malas belajar butuh jadwal yang lebih ketat dan aturan yang lebih tegas. Padahal, dalam banyak kasus, yang sebenarnya dibutuhkan adalah kebiasaan-kebiasaan kecil yang konsisten dilakukan setiap hari — bukan tekanan yang lebih besar.',
-        '<strong>1. Mulai dari sesi belajar singkat.</strong> Alih-alih memaksa anak duduk selama dua jam penuh, coba mulai dengan sesi 20-25 menit yang fokus, lalu istirahat sebentar. Otak anak lebih mudah menyerap informasi lewat sesi pendek yang berulang daripada satu sesi panjang yang melelahkan.',
-        '<strong>2. Sediakan "meja belajar tetap".</strong> Tempat yang konsisten membantu otak anak mengasosiasikan lokasi tersebut dengan mode fokus. Tidak perlu mewah, cukup meja yang bebas dari gangguan visual seperti mainan atau gadget.',
-        '<strong>3. Rayakan proses, bukan cuma nilai.</strong> Memberi apresiasi ketika anak berusaha — bahkan saat hasilnya belum sempurna — membuat anak lebih berani mencoba dan tidak takut gagal.',
-        '<strong>4. Libatkan anak dalam menyusun jadwalnya sendiri.</strong> Anak yang ikut menentukan kapan waktu belajarnya cenderung lebih patuh dibanding jadwal yang sepenuhnya ditentukan orang tua.',
-        '<strong>5. Jadikan waktu tidur sebagai prioritas.</strong> Tidur cukup terbukti berkontribusi besar pada daya ingat dan konsentrasi anak di sekolah keesokan harinya — sering kali lebih berpengaruh daripada jam belajar tambahan.',
-        'Kebiasaan kecil yang dilakukan konsisten setiap hari, dalam jangka panjang, biasanya memberi hasil yang jauh lebih stabil dibanding dorongan besar yang hanya bertahan beberapa minggu.',
-      ],
-    ],
-    [
-      'slug' => 'cara-menyusun-jadwal-belajar-realistis-anak-sd',
-      'category' => 'tips',
-      'title' => 'Cara Menyusun Jadwal Belajar yang Realistis untuk Anak SD',
-      'date' => '25 Jun 2026',
-      'read_time' => '4 min baca',
-      'image' => 'https://images.pexels.com/photos/6214651/pexels-photo-6214651.jpeg?auto=compress&cs=tinysrgb&w=1200',
-      'image_alt' => 'Anak membaca buku di ruang belajar (foto stok)',
-      'excerpt' => 'Jadwal belajar yang terlalu padat justru bikin anak cepat lelah. Ini cara menyusunnya biar tetap efektif.',
-      'content' => [
-        'Anak usia SD punya rentang fokus yang jauh lebih pendek dibanding orang dewasa. Jadwal belajar yang disusun berdasarkan logika orang dewasa — misalnya belajar dua jam nonstop — biasanya berakhir dengan anak yang rewel dan materi yang tidak masuk sama sekali.',
-        'Aturan praktis yang cukup membantu adalah durasi fokus sekitar 2-3 menit dikali usia anak. Jadi anak usia 8 tahun idealnya belajar fokus sekitar 16-24 menit sebelum butuh jeda.',
-        'Selain durasi, urutan mata pelajaran juga berpengaruh. Menaruh pelajaran yang paling menantang di awal sesi — saat energi dan fokus anak masih penuh — biasanya lebih efektif daripada menyimpannya di akhir.',
-        'Terakhir, sisakan slot "buffer" di jadwal untuk hari-hari yang tidak berjalan sesuai rencana. Jadwal yang terlalu kaku justru rentan bikin anak (dan orang tua) merasa gagal saat satu hari saja terlewat.',
-      ],
-    ],
-    [
-      'slug' => 'yang-berubah-dari-utbk-2026',
-      'category' => 'info',
-      'title' => 'Yang Berubah dari UTBK 2026, Orang Tua Wajib Tahu',
-      'date' => '22 Jun 2026',
-      'read_time' => '6 min baca',
-      'image' => 'https://images.pexels.com/photos/6684209/pexels-photo-6684209.jpeg?auto=compress&cs=tinysrgb&w=1200',
-      'image_alt' => 'Siswa mengerjakan ujian (foto stok)',
-      'excerpt' => 'Ada beberapa penyesuaian format dan jadwal UTBK tahun ini yang penting diketahui sejak awal.',
-      'content' => [
-        'Setiap tahun, format UTBK biasanya mengalami penyesuaian kecil — baik dari sisi materi, durasi, maupun jadwal pelaksanaan. Penting bagi orang tua dan siswa untuk mengikuti pengumuman resmi agar strategi belajar bisa disesuaikan sejak jauh hari.',
-        'Beberapa hal yang biasanya paling sering berubah antara lain: komposisi soal Tes Potensi Skolastik (TPS), alokasi waktu per subtes, dan jumlah gelombang ujian yang tersedia.',
-        'Yang tidak kalah penting adalah persiapan mental. Perubahan format sering bikin siswa cemas berlebihan, padahal fondasi belajar yang solid — pemahaman konsep, bukan sekadar hafalan soal — tetap jadi kunci utama apa pun format ujiannya.',
-        'Untuk info resmi dan jadwal terbaru, selalu rujuk ke situs resmi penyelenggara SNPMB, dan diskusikan dengan tutor atau pembimbing untuk menyesuaikan strategi belajar anak.',
-      ],
-    ],
-    [
-      'slug' => 'dari-nilai-pas-pasan-ke-juara-kelas-kirana',
-      'category' => 'sukses',
-      'title' => 'Dari Nilai Pas-Pasan ke Juara Kelas: Cerita Kirana',
-      'date' => '19 Jun 2026',
-      'read_time' => '5 min baca',
-      'image' => 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=1200',
-      'image_alt' => 'Wisuda mahasiswa (foto stok)',
-      'excerpt' => 'Perjalanan seorang siswa yang awalnya minder soal Matematika, sampai akhirnya jadi juara kelas.',
-      'content' => [
-        'Kirana masih ingat betul rasanya duduk di kelas Matematika sambil berharap tidak ditunjuk maju ke depan. Nilai ulangannya sering di bawah rata-rata, dan ia mulai percaya bahwa dirinya memang "tidak berbakat" di pelajaran itu.',
-        'Titik baliknya datang bukan dari les tambahan yang lebih banyak, tapi dari cara belajar yang berbeda: alih-alih menghafal rumus, ia mulai diajak memahami logika di balik setiap rumus lewat contoh sehari-hari.',
-        '<em>"Awalnya aku kira aku emang nggak bisa Matematika. Ternyata aku cuma belum ketemu cara belajar yang cocok buat aku,"</em> ujar Kirana mengenang perjalanannya.',
-        'Dalam waktu dua semester, nilai Matematikanya naik signifikan, dan ia berhasil meraih peringkat pertama di kelasnya. Bukan karena mendadak jadi jenius, tapi karena akhirnya menemukan pendekatan belajar yang sesuai dengan gaya berpikirnya.',
-        'Cerita Kirana jadi pengingat bahwa kesulitan belajar sering kali bukan soal kemampuan, tapi soal metode yang belum pas.',
-      ],
-    ],
-    [
-      'slug' => '5-aplikasi-seru-latihan-speaking-bahasa-inggris',
-      'category' => 'english',
-      'title' => '5 Aplikasi Seru untuk Latihan Speaking Bahasa Inggris',
-      'date' => '16 Jun 2026',
-      'read_time' => '3 min baca',
-      'image' => 'https://images.pexels.com/photos/6325982/pexels-photo-6325982.jpeg?auto=compress&cs=tinysrgb&w=1200',
-      'image_alt' => 'Tutor membimbing siswa belajar (foto stok)',
-      'excerpt' => 'Belajar speaking nggak melulu lewat buku. Coba lima aplikasi ini biar anak makin pede ngomong Inggris.',
-      'content' => [
-        'Kepercayaan diri berbicara bahasa Inggris sering kali lebih sulit dibangun dibanding penguasaan grammar. Untungnya, ada banyak aplikasi yang dirancang khusus untuk melatih speaking dengan cara yang menyenangkan dan tidak menghakimi.',
-        'Aplikasi berbasis percakapan interaktif membantu anak berlatih pengucapan tanpa rasa takut salah di depan orang lain, karena mereka berlatih dengan AI atau rekaman suara sendiri terlebih dahulu.',
-        'Fitur pengenalan suara pada aplikasi-aplikasi ini juga memberi umpan balik langsung soal pelafalan, sehingga anak bisa memperbaiki kesalahan kecil sebelum kebiasaan itu melekat.',
-        'Yang paling penting: jadikan sesi latihan ini sebagai rutinitas ringan 10-15 menit sehari, bukan target besar yang membebani. Konsistensi kecil jauh lebih efektif dibanding sesi panjang yang jarang dilakukan.',
-      ],
-    ],
-    [
-      'slug' => 'menumbuhkan-minat-baca-pada-anak-sejak-dini',
-      'category' => 'tips',
-      'title' => 'Menumbuhkan Minat Baca pada Anak Sejak Dini',
-      'date' => '13 Jun 2026',
-      'read_time' => '4 min baca',
-      'image' => 'https://images.pexels.com/photos/10638213/pexels-photo-10638213.jpeg?auto=compress&cs=tinysrgb&w=1200',
-      'image_alt' => 'Anak-anak membaca buku bersama (foto stok)',
-      'excerpt' => 'Minat baca nggak muncul begitu saja — ini beberapa kebiasaan kecil yang bisa orang tua mulai dari rumah.',
-      'content' => [
-        'Minat baca jarang tumbuh dari paksaan. Anak yang terus-menerus disuruh membaca tanpa contoh nyata di sekitarnya cenderung menganggap membaca sebagai kewajiban, bukan kesenangan.',
-        'Salah satu cara paling efektif adalah dengan menunjukkan, bukan menyuruh — orang tua yang terlihat menikmati membaca buku secara alami menanamkan citra bahwa membaca itu menyenangkan.',
-        'Memberi anak kebebasan memilih buku sesuai minatnya sendiri, meskipun terlihat "ringan" di mata orang dewasa, jauh lebih efektif dibanding memaksakan buku yang dianggap lebih "bermutu".',
-        'Rutinitas kecil seperti membacakan cerita sebelum tidur, atau kunjungan rutin ke perpustakaan, juga terbukti membangun asosiasi positif antara membaca dan momen-momen yang menyenangkan.',
-      ],
-    ],
-    [
-      'slug' => 'cara-mendampingi-anak-belajar-tanpa-baper',
-      'category' => 'parenting',
-      'title' => 'Cara Mendampingi Anak Belajar Tanpa Baper',
-      'date' => '10 Jun 2026',
-      'read_time' => '5 min baca',
-      'image' => 'https://images.pexels.com/photos/8926887/pexels-photo-8926887.jpeg?auto=compress&cs=tinysrgb&w=1200',
-      'image_alt' => 'Anak-anak belajar di perpustakaan (foto stok)',
-      'excerpt' => 'Sering emosi tiap dampingi anak belajar di rumah? Coba beberapa pendekatan ini biar sesi belajar tetap adem.',
-      'content' => [
-        'Momen mendampingi anak belajar di rumah sering berubah jadi ajang adu emosi — bukan karena orang tua tidak sabar, tapi karena ekspektasi yang tidak realistis terhadap kecepatan belajar anak.',
-        'Salah satu penyebab utama frustrasi adalah membandingkan progres anak dengan standar orang dewasa, padahal proses berpikir anak memang butuh waktu lebih lama untuk hal-hal yang bagi kita terasa sederhana.',
-        'Mengambil jeda sejenak ketika emosi mulai naik — baik dari orang tua maupun anak — jauh lebih efektif daripada memaksakan sesi belajar terus berjalan di tengah suasana yang tegang.',
-        'Terakhir, penting untuk mengingat bahwa peran orang tua di rumah adalah pendamping, bukan guru utama. Berkolaborasi dengan tutor atau bimbingan belajar bisa membantu meringankan beban ini sekaligus menjaga hubungan orang tua dan anak tetap hangat.',
-      ],
-    ],
-  ];
-
   $categoryLabels = [
     'tips' => 'Tips Belajar',
     'info' => 'Info Pendidikan',
@@ -132,29 +8,9 @@
     'english' => 'English Corner',
     'parenting' => 'Parenting',
   ];
-
-  $post = collect($posts)->firstWhere('slug', $slug ?? null);
-
-  if (! $post) {
-      abort(404);
-  }
-
-  $related = collect($posts)
-      ->where('slug', '!=', $post['slug'])
-      ->where('category', $post['category'])
-      ->values();
-
-  if ($related->count() < 3) {
-      $filler = collect($posts)
-          ->where('slug', '!=', $post['slug'])
-          ->whereNotIn('slug', $related->pluck('slug'));
-      $related = $related->merge($filler->take(3 - $related->count()));
-  }
-
-  $related = $related->take(3);
 @endphp
 
-@section('title', $post['title'].' — Bimbel Smart')
+@section('title', $post->title.' — Bimbel Smart')
 @section('page', 'blog')
 
 @push('styles')
@@ -255,12 +111,12 @@
     <div class="breadcrumb reveal">
       <a href="{{ route('home') }}#home">Home</a><span>/</span>
       <a href="{{ route('blog') }}">Blog</a><span>/</span>
-      <span class="current">{{ $categoryLabels[$post['category']] ?? 'Artikel' }}</span>
+      <span class="current">{{ $categoryLabels[$post->category] ?? 'Artikel' }}</span>
     </div>
-    <span class="post-tag reveal">{{ $categoryLabels[$post['category']] ?? 'Artikel' }}</span>
-    <h1 class="reveal">{{ $post['title'] }}</h1>
+    <span class="post-tag reveal">{{ $categoryLabels[$post->category] ?? 'Artikel' }}</span>
+    <h1 class="reveal">{{ $post->title }}</h1>
     <div class="post-meta reveal">
-      <span>{{ $post['date'] }}</span><span class="dot"></span><span>{{ $post['read_time'] }}</span>
+      <span>{{ $post->published_at?->translatedFormat('d M Y') }}</span><span class="dot"></span><span>{{ $post->read_time }} min baca</span>
     </div>
   </div>
 </section>
@@ -270,18 +126,16 @@
   <div class="wrap post-layout">
     <article class="reveal">
       <div class="post-cover">
-        <img src="{{ $post['image'] }}" alt="{{ $post['image_alt'] }}">
+        <img src="{{ $post->getFirstMediaUrl('post_images') }}" alt="{{ $post->title }}">
       </div>
       <div class="post-text">
-        @foreach ($post['content'] as $paragraph)
-          <p>{!! $paragraph !!}</p>
-        @endforeach
+        {!! $post->content !!}
       </div>
 
       <div class="post-share">
         <span>Bagikan artikel:</span>
         <div class="share-links">
-          <a href="https://wa.me/?text={{ urlencode($post['title'].' - '.request()->fullUrl()) }}" target="_blank" rel="noopener" aria-label="Bagikan ke WhatsApp">
+          <a href="https://wa.me/?text={{ urlencode($post->title.' - '.request()->fullUrl()) }}" target="_blank" rel="noopener" aria-label="Bagikan ke WhatsApp">
             <svg viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.7a2 2 0 01-.5 2.1L8 9.7a16 16 0 006.3 6.3l1.2-1.2a2 2 0 012.1-.5c.9.3 1.8.5 2.7.6a2 2 0 011.7 2.1z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
           <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}" target="_blank" rel="noopener" aria-label="Bagikan ke Facebook">
@@ -316,7 +170,7 @@
           @foreach ($categoryLabels as $key => $label)
             <a href="{{ route('blog') }}">
               <span>{{ $label }}</span>
-              @if($key === $post['category'])
+              @if($key === $post->category)
                 <span style="color:var(--gold-deep);">●</span>
               @endif
             </a>
@@ -329,11 +183,11 @@
         <h4>Artikel Terkait</h4>
         <div class="related-list">
           @foreach ($related as $item)
-            <a href="{{ route('blog.show', $item['slug']) }}" class="related-item">
-              <div class="thumb"><img src="{{ $item['image'] }}" alt="{{ $item['image_alt'] }}"></div>
+            <a href="{{ route('blog.show', $item->slug) }}" class="related-item">
+              <div class="thumb"><img src="{{ $item->getFirstMediaUrl('post_images') }}" alt="{{ $item->title }}"></div>
               <div>
-                <h5>{{ $item['title'] }}</h5>
-                <span>{{ $item['date'] }}</span>
+                <h5>{{ $item->title }}</h5>
+                <span>{{ $item->published_at?->translatedFormat('d M Y') }}</span>
               </div>
             </a>
           @endforeach

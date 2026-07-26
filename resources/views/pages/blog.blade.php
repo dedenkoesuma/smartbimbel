@@ -125,6 +125,16 @@
 </style>
 @endpush
 
+@php
+  $categoryLabels = [
+    'tips' => 'Tips Belajar',
+    'info' => 'Info Pendidikan',
+    'sukses' => 'Cerita Sukses',
+    'english' => 'English Corner',
+    'parenting' => 'Parenting',
+  ];
+@endphp
+
 @section('content')
 <!-- ============ PAGE BANNER ============ -->
 <section class="banner">
@@ -145,22 +155,33 @@
 </section>
 
 <!-- ============ FEATURED POST ============ -->
+@if($featured)
 <section class="featured">
   <div class="wrap">
     <div class="featured-card reveal">
       <div class="featured-media">
-        <img src="https://images.pexels.com/photos/9572630/pexels-photo-9572630.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Dua siswa belajar bersama di perpustakaan (foto stok)">
+        <img src="{{ $featured->getFirstMediaUrl('post_images') }}" alt="{{ $featured->title }}">
         <span class="tag">Artikel Pilihan</span>
       </div>
       <div class="featured-body">
-        <div class="featured-meta"><span>Tips Belajar</span><span class="dot"></span><span>28 Jun 2026</span><span class="dot"></span><span>5 min baca</span></div>
-        <h2>5 Kebiasaan Kecil yang Bikin Anak Makin Semangat Belajar</h2>
-        <p class="excerpt">Kadang yang dibutuhkan bukan jadwal belajar yang lebih ketat, tapi kebiasaan kecil yang tepat. Simak lima kebiasaan sederhana yang terbukti membantu anak lebih semangat dan konsisten belajar setiap hari.</p>
-        <a href="{{ route('blog.show', '5-kebiasaan-kecil-bikin-anak-semangat-belajar') }}" class="link-arrow">Baca Selengkapnya <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="featured-meta">
+          <span>{{ $categoryLabels[$featured->category] ?? $featured->category }}</span>
+          <span class="dot"></span>
+          <span>{{ $featured->published_at?->translatedFormat('d M Y') }}</span>
+          <span class="dot"></span>
+          <span>{{ $featured->read_time }} min baca</span>
+        </div>
+        <h2>{{ $featured->title }}</h2>
+        <p class="excerpt">{{ $featured->excerpt }}</p>
+        <a href="{{ route('blog.show', $featured->slug) }}" class="link-arrow">
+          Baca Selengkapnya
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
       </div>
     </div>
   </div>
 </section>
+@endif
 
 <!-- ============ FILTER + GRID ARTIKEL ============ -->
 <section class="bloglist">
@@ -172,93 +193,31 @@
 
     <div class="filter-row reveal">
       <button class="filter-pill active" data-filter="semua">Semua</button>
-      <button class="filter-pill" data-filter="tips">Tips Belajar</button>
-      <button class="filter-pill" data-filter="info">Info Pendidikan</button>
-      <button class="filter-pill" data-filter="sukses">Cerita Sukses</button>
-      <button class="filter-pill" data-filter="english">English Corner</button>
-      <button class="filter-pill" data-filter="parenting">Parenting</button>
+      @foreach($categoryLabels as $key => $label)
+        <button class="filter-pill" data-filter="{{ $key }}">{{ $label }}</button>
+      @endforeach
     </div>
 
     <div class="blog-grid" id="blogGrid">
-
-      <article class="blog-card" data-category="tips" data-title="cara menyusun jadwal belajar yang realistis untuk anak sd">
-        <a class="blog-thumb" href="{{ route('blog.show', 'cara-menyusun-jadwal-belajar-realistis-anak-sd') }}">
-          <img src="https://images.pexels.com/photos/6214651/pexels-photo-6214651.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Anak membaca buku di ruang belajar (foto stok)">
-          <span class="tag">Tips Belajar</span>
-        </a>
-        <div class="blog-body">
-          <span class="blog-meta">25 Jun 2026 &middot; 4 min baca</span>
-          <h3><a href="{{ route('blog.show', 'cara-menyusun-jadwal-belajar-realistis-anak-sd') }}">Cara Menyusun Jadwal Belajar yang Realistis untuk Anak SD</a></h3>
-          <p>Jadwal belajar yang terlalu padat justru bikin anak cepat lelah. Ini cara menyusunnya biar tetap efektif.</p>
-          <a href="{{ route('blog.show', 'cara-menyusun-jadwal-belajar-realistis-anak-sd') }}" class="link-arrow">Baca Selengkapnya <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </article>
-
-      <article class="blog-card" data-category="info" data-title="yang berubah dari utbk 2026 orang tua wajib tahu">
-        <a class="blog-thumb" href="{{ route('blog.show', 'yang-berubah-dari-utbk-2026') }}">
-          <img src="https://images.pexels.com/photos/6684209/pexels-photo-6684209.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Siswa mengerjakan ujian (foto stok)">
-          <span class="tag">Info Pendidikan</span>
-        </a>
-        <div class="blog-body">
-          <span class="blog-meta">22 Jun 2026 &middot; 6 min baca</span>
-          <h3><a href="{{ route('blog.show', 'yang-berubah-dari-utbk-2026') }}">Yang Berubah dari UTBK 2026, Orang Tua Wajib Tahu</a></h3>
-          <p>Ada beberapa penyesuaian format dan jadwal UTBK tahun ini yang penting diketahui sejak awal.</p>
-          <a href="{{ route('blog.show', 'yang-berubah-dari-utbk-2026') }}" class="link-arrow">Baca Selengkapnya <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </article>
-
-      <article class="blog-card" data-category="sukses" data-title="dari nilai pas pasan ke juara kelas cerita kirana">
-        <a class="blog-thumb" href="{{ route('blog.show', 'dari-nilai-pas-pasan-ke-juara-kelas-kirana') }}">
-          <img src="https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Wisuda mahasiswa (foto stok)">
-          <span class="tag">Cerita Sukses</span>
-        </a>
-        <div class="blog-body">
-          <span class="blog-meta">19 Jun 2026 &middot; 5 min baca</span>
-          <h3><a href="{{ route('blog.show', 'dari-nilai-pas-pasan-ke-juara-kelas-kirana') }}">Dari Nilai Pas-Pasan ke Juara Kelas: Cerita Kirana</a></h3>
-          <p>Perjalanan seorang siswa yang awalnya minder soal Matematika, sampai akhirnya jadi juara kelas.</p>
-          <a href="{{ route('blog.show', 'dari-nilai-pas-pasan-ke-juara-kelas-kirana') }}" class="link-arrow">Baca Selengkapnya <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </article>
-
-      <article class="blog-card" data-category="english" data-title="5 aplikasi seru untuk latihan speaking bahasa inggris">
-        <a class="blog-thumb" href="{{ route('blog.show', '5-aplikasi-seru-latihan-speaking-bahasa-inggris') }}">
-          <img src="https://images.pexels.com/photos/6325982/pexels-photo-6325982.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Tutor membimbing siswa belajar (foto stok)">
-          <span class="tag">English Corner</span>
-        </a>
-        <div class="blog-body">
-          <span class="blog-meta">16 Jun 2026 &middot; 3 min baca</span>
-          <h3><a href="{{ route('blog.show', '5-aplikasi-seru-latihan-speaking-bahasa-inggris') }}">5 Aplikasi Seru untuk Latihan Speaking Bahasa Inggris</a></h3>
-          <p>Belajar speaking nggak melulu lewat buku. Coba lima aplikasi ini biar anak makin pede ngomong Inggris.</p>
-          <a href="{{ route('blog.show', '5-aplikasi-seru-latihan-speaking-bahasa-inggris') }}" class="link-arrow">Baca Selengkapnya <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </article>
-
-      <article class="blog-card" data-category="tips" data-title="menumbuhkan minat baca pada anak sejak dini">
-        <a class="blog-thumb" href="{{ route('blog.show', 'menumbuhkan-minat-baca-pada-anak-sejak-dini') }}">
-          <img src="https://images.pexels.com/photos/10638213/pexels-photo-10638213.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Anak-anak membaca buku bersama (foto stok)">
-          <span class="tag">Tips Belajar</span>
-        </a>
-        <div class="blog-body">
-          <span class="blog-meta">13 Jun 2026 &middot; 4 min baca</span>
-          <h3><a href="{{ route('blog.show', 'menumbuhkan-minat-baca-pada-anak-sejak-dini') }}">Menumbuhkan Minat Baca pada Anak Sejak Dini</a></h3>
-          <p>Minat baca nggak muncul begitu saja — ini beberapa kebiasaan kecil yang bisa orang tua mulai dari rumah.</p>
-          <a href="{{ route('blog.show', 'menumbuhkan-minat-baca-pada-anak-sejak-dini') }}" class="link-arrow">Baca Selengkapnya <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </article>
-
-      <article class="blog-card" data-category="parenting" data-title="cara mendampingi anak belajar tanpa baper">
-        <a class="blog-thumb" href="{{ route('blog.show', 'cara-mendampingi-anak-belajar-tanpa-baper') }}">
-          <img src="https://images.pexels.com/photos/8926887/pexels-photo-8926887.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Anak-anak belajar di perpustakaan (foto stok)">
-          <span class="tag">Parenting</span>
-        </a>
-        <div class="blog-body">
-          <span class="blog-meta">10 Jun 2026 &middot; 5 min baca</span>
-          <h3><a href="{{ route('blog.show', 'cara-mendampingi-anak-belajar-tanpa-baper') }}">Cara Mendampingi Anak Belajar Tanpa Baper</a></h3>
-          <p>Sering emosi tiap dampingi anak belajar di rumah? Coba beberapa pendekatan ini biar sesi belajar tetap adem.</p>
-          <a href="{{ route('blog.show', 'cara-mendampingi-anak-belajar-tanpa-baper') }}" class="link-arrow">Baca Selengkapnya <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </article>
-
+      @forelse($posts as $item)
+        <article class="blog-card" data-category="{{ $item->category }}" data-title="{{ Str::lower($item->title) }}">
+          <a class="blog-thumb" href="{{ route('blog.show', $item->slug) }}">
+            <img src="{{ $item->getFirstMediaUrl('post_images') }}" alt="{{ $item->title }}">
+            <span class="tag">{{ $categoryLabels[$item->category] ?? $item->category }}</span>
+          </a>
+          <div class="blog-body">
+            <span class="blog-meta">{{ $item->published_at?->translatedFormat('d M Y') }} &middot; {{ $item->read_time }} min baca</span>
+            <h3><a href="{{ route('blog.show', $item->slug) }}">{{ $item->title }}</a></h3>
+            <p>{{ Str::limit($item->excerpt, 110) }}</p>
+            <a href="{{ route('blog.show', $item->slug) }}" class="link-arrow">
+              Baca Selengkapnya
+              <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+      @empty
+        <p>Belum ada artikel yang dipublikasikan.</p>
+      @endforelse
     </div>
     <p class="empty-state" id="emptyState">Belum ada artikel yang cocok dengan pencarian atau kategori ini.</p>
   </div>

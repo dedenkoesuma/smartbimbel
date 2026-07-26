@@ -1,44 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PageController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes — Bimbel Smart
-|--------------------------------------------------------------------------
-| Copy isi file ini ke routes/web.php di project Laravel kamu
-| (atau require dari sana kalau mau dipisah).
-*/
+// Rute Halaman Depan
+Route::get('/', [PageController::class, 'home'])->name('home');
+Route::get('/tentang-kami', [PageController::class, 'tentangKami'])->name('tentang-kami');
+Route::get('/layanan', [PageController::class, 'layanan'])->name('layanan');
+Route::get('/galeri', [PageController::class, 'galeri'])->name('galeri');
+Route::get('/kontak', [PageController::class, 'kontak'])->name('kontak');
 
-Route::get('/', function () {
-    return view('pages.home');
-})->name('home');
+// Tambahkan rute blog di sini:
+Route::get('/blog/{slug}', [PageController::class, 'blogShow'])->name('blog.show');
+Route::get('/blog', [PageController::class, 'blog'])->name('blog');
+// Rute Submit Form Kontak
+Route::post('/kontak', [PageController::class, 'submitKontak'])->name('kontak.submit');
 
-Route::get('/tentang-kami', function () {
-    return view('pages.tentang-kami');
-})->name('tentang-kami');
-
-Route::get('/layanan', function () {
-    return view('pages.layanan');
-})->name('layanan');
-
-Route::get('/galeri', function () {
-    return view('pages.galeri');
-})->name('galeri');
-
-Route::get('/blog', function () {
-    return view('pages.blog');
-})->name('blog');
-
-Route::get('/kontak', function () {
-    return view('pages.kontak');
-})->name('kontak');
-
-Route::post('/kontak', function () {
-    // TODO: ganti closure ini dengan controller (mis. ContactController@store)
-    // buat validasi input dan simpan/kirim pesan dari form kontak.
-    return back()->with('success', 'Pesan terkirim! Tim kami akan menghubungi kamu segera.');
-})->name('kontak.store');
-Route::get('/blog/{slug}', function ($slug) {
-    return view('pages.blog-detail', ['slug' => $slug]);
-})->name('blog.show');
+// Rute Login Filament
+Route::get('/login', function () {
+    return redirect('/admin/login');
+})->name('login');

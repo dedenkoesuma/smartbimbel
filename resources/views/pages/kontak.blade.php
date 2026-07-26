@@ -186,40 +186,47 @@
 
       <div class="contact-form">
         <h3>Kirim Pesan ke Kami</h3>
-        <div class="form-success" id="formSuccess">
+        @if(session('success'))
+        <div class="form-success show" style="display: flex;">
           <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M8 12l3 3 5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Pesan terkirim! Tim kami akan menghubungi kamu segera.
+          {{ session('success') }}
         </div>
-        <form id="kontakForm" method="POST" action="{{ url('kontak') }}">
+        @endif
+        <form id="kontakForm" method="POST" action="{{ route('kontak.submit') }}">
           @csrf
           <div class="form-row">
             <div class="field">
-              <label for="nama">Nama Lengkap</label>
-              <input type="text" id="nama" name="nama" placeholder="Nama kamu" value="{{ old('nama') }}" required>
+              <label for="name">Nama Lengkap</label>
+              <!-- Ubah name dan old() menjadi 'name' -->
+              <input type="text" id="name" name="name" placeholder="Nama kamu" value="{{ old('name') }}" required>
             </div>
             <div class="field">
-              <label for="telepon">No. Telepon</label>
-              <input type="tel" id="telepon" name="telepon" placeholder="08xx-xxxx-xxxx" value="{{ old('telepon') }}" required>
+              <label for="phone">No. Telepon</label>
+              <!-- Ubah name dan old() menjadi 'phone' -->
+              <input type="tel" id="phone" name="phone" placeholder="08xx-xxxx-xxxx" value="{{ old('phone') }}" required>
             </div>
           </div>
           <div class="field">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="nama@email.com" value="{{ old('email') }}" required>
+            <input type="email" id="email" name="email" placeholder="nama@email.com" value="{{ old('email') }}">
           </div>
           <div class="field">
-            <label for="program">Program yang Diminati</label>
-            <select id="program" name="program">
+            <label for="program_interest">Program yang Diminati</label>
+            <select id="program_interest" name="program_interest">
               <option value="">Pilih program (opsional)</option>
-              <option>SD - Kelas Interaktif</option>
-              <option>SMP - Bimbingan Reguler</option>
-              <option>SMA - Persiapan UTBK</option>
-              <option>Tutor Privat</option>
-              <option>Lainnya</option>
+              
+              <!-- Looping data program secara dinamis -->
+              @foreach($programs as $program)
+                <option value="{{ $program->title }}">{{ $program->title }}</option>
+              @endforeach
+              
+              <option value="Lainnya">Lainnya</option>
             </select>
           </div>
           <div class="field">
-            <label for="pesan">Pesan</label>
-            <textarea id="pesan" name="pesan" placeholder="Ceritakan kebutuhan belajar kamu di sini...">{{ old('pesan') }}</textarea>
+            <label for="message">Pesan</label>
+            <!-- Ubah name dan old() menjadi 'message' -->
+            <textarea id="message" name="message" placeholder="Ceritakan kebutuhan belajar kamu di sini..." required>{{ old('message') }}</textarea>
           </div>
           <button type="submit" class="btn btn-primary btn-block">Kirim Pesan</button>
           <p class="form-note">Dengan mengirim formulir ini, kamu setuju dihubungi oleh tim Bimbel Smart.</p>
@@ -312,16 +319,6 @@
         a.style.maxHeight = a.scrollHeight + 'px';
       }
     });
-  });
-
-  // Contact form (demo only, no backend)
-  const kontakForm = document.getElementById('kontakForm');
-  const formSuccess = document.getElementById('formSuccess');
-  kontakForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    formSuccess.classList.add('show');
-    kontakForm.reset();
-    formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   });
 </script>
 @endpush

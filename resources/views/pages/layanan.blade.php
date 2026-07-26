@@ -7,7 +7,6 @@
 <style>
 /* Token, reset, tombol, navbar & mobile-nav dasar sudah ada di assets/style.css */
 
-
   /* ============ PAGE BANNER (khusus Layanan — kartu foto + shape aksen, beda dari Tentang Kami) ============ */
   .banner{padding:64px 0 80px;background:linear-gradient(180deg,#fff 0%,var(--blue-tint) 100%);overflow:hidden;}
   .banner-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center;}
@@ -154,7 +153,6 @@
 
   /* Style footer & reveal dasar sudah ada di assets/style.css */
 
-
   /* ============ RESPONSIVE ============ */
   @media (max-width:980px){
     .nav-links{display:none;}
@@ -254,7 +252,7 @@
             <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Laporan perkembangan mingguan</li>
           </ul>
           <div class="pd-footer">
-            <div class="pd-price"><strong>Mulai Rp350rb</strong><span>per bulan (estimasi)</span></div>
+            <div class="pd-price"><strong>Konsultasi</strong><span>hubungi kami untuk info biaya</span></div>
             <a href="{{ route('kontak') }}#form-kontak" class="btn btn-outline btn-sm">Konsultasi Program Ini</a>
           </div>
         </div>
@@ -277,7 +275,7 @@
             <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Konsultasi pemilihan SMA</li>
           </ul>
           <div class="pd-footer">
-            <div class="pd-price"><strong>Mulai Rp450rb</strong><span>per bulan (estimasi)</span></div>
+            <div class="pd-price"><strong>Konsultasi</strong><span>hubungi kami untuk info biaya</span></div>
             <a href="{{ route('kontak') }}#form-kontak" class="btn btn-outline btn-sm">Konsultasi Program Ini</a>
           </div>
         </div>
@@ -300,7 +298,7 @@
             <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Konsultasi pemilihan jurusan</li>
           </ul>
           <div class="pd-footer">
-            <div class="pd-price"><strong>Mulai Rp550rb</strong><span>per bulan (estimasi)</span></div>
+            <div class="pd-price"><strong>Konsultasi</strong><span>hubungi kami untuk info biaya</span></div>
             <a href="{{ route('kontak') }}#form-kontak" class="btn btn-outline btn-sm">Konsultasi Program Ini</a>
           </div>
         </div>
@@ -413,6 +411,19 @@
         <h4>Try Out Berkala</h4>
         <p>Simulasi ujian rutin lengkap dengan analisis hasil, untuk memantau kesiapan siswa secara berkala.</p>
       </div>
+      
+      <!-- ADDON BARU (KE-6) -->
+      <div class="addon-card">
+        <div class="addon-icon">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h4>Modul Belajar Eksklusif</h4>
+        <p>Akses ke ringkasan materi dan bank soal terupdate yang disusun khusus oleh tim pengajar ahli.</p>
+      </div>
+
     </div>
   </div>
 </section>

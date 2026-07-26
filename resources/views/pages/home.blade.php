@@ -10,7 +10,7 @@
   /* ============ HERO ============ */
   .hero{
     background:linear-gradient(180deg,var(--blue-tint) 0%, #fff 78%);
-    paddsing:80px 0 60px;overflow:hidden;
+    padding:80px 0 60px;overflow:hidden;
   }
   .hero .wrap{
     display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center;
@@ -51,7 +51,7 @@
   .badge-dot{width:34px;height:34px;border-radius:50%;background:var(--blue-tint);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .badge-dot svg{width:17px;height:17px;color:var(--blue);}
 
-  /* ============ WHY US (concept 2 layout) ============ */
+  /* ============ WHY US ============ */
   .why{padding:100px 0;}
   .why .wrap{display:grid;grid-template-columns:.95fr 1.05fr;gap:70px;align-items:center;}
   .why-visual{position:relative;height:440px;}
@@ -76,7 +76,7 @@
   .why-check svg{width:15px;height:15px;color:#fff;}
   .why-item p{font-weight:700;font-size:15.5px;color:var(--ink);}
 
-  /* ============ PROGRAM (concept 1 dark band) ============ */
+  /* ============ PROGRAM ============ */
   .program{
     background:linear-gradient(165deg,var(--blue-deep),var(--blue));
     padding:100px 0;color:#fff;
@@ -87,6 +87,7 @@
   .program-card{
     background:#fff;border-radius:var(--radius-lg);padding:36px 30px;color:var(--ink);
     position:relative;overflow:hidden;transition:transform .25s ease, box-shadow .25s ease;
+    display:flex;flex-direction:column; /* Ditambahkan agar tinggi menyesuaikan & rapi */
   }
   .program-card::before{
     content:'';position:absolute;top:0;right:0;width:0;height:0;
@@ -100,7 +101,10 @@
   }
   .program-icon svg{width:28px;height:28px;color:var(--blue);}
   .program-card h3{font-size:21px;margin-bottom:10px;}
-  .program-card p{color:var(--ink-soft);font-size:15px;margin-bottom:24px;min-height:66px;}
+  .program-card p{
+    color:var(--ink-soft);font-size:15px;margin-bottom:24px;
+    flex-grow:1; /* Memastikan teks mendorong tombol ke bawah jika panjang deskripsi berbeda */
+  }
 
   /* ============ PENGAJAR / LOGOS ============ */
   .teachers{padding:90px 0 100px;background:var(--white);}
@@ -123,7 +127,7 @@
   .uni-badge span{font-size:12.5px;font-weight:700;color:var(--ink-soft);text-align:center;}
   .logo-note{margin-top:18px;font-size:13px;color:var(--ink-soft);text-align:center;}
 
-  /* ============ BLOG (concept 1) ============ */
+  /* ============ BLOG ============ */
   .blog{padding:100px 0;background:var(--blue-tint);}
   .blog-head-row{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;flex-wrap:wrap;gap:20px;}
   .blog-head-row .section-head{margin-bottom:0;}
@@ -204,8 +208,6 @@
   .field textarea{resize:vertical;min-height:100px;}
   .form-status{font-size:13.5px;font-weight:700;color:var(--blue);height:18px;margin-top:4px;}
 
-  /* Style footer & reveal dasar sudah ada di assets/style.css */
-
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
     .reveal{transition:none;opacity:1;transform:none;}
@@ -222,13 +224,16 @@
     .hero-blob{width:280px;height:280px;}
     .why .wrap{grid-template-columns:1fr;gap:40px;}
     .why-visual{height:340px;}
-    .program-grid{grid-template-columns:1fr;}
+    .program-grid{grid-template-columns:repeat(2,1fr);} /* Menjadi 2 kolom di tablet */
     .logo-grid{grid-template-columns:repeat(2,1fr);}
     .blog-grid{grid-template-columns:1fr;}
     .gallery-grid{grid-template-columns:repeat(2,1fr);}
     .contact-card{grid-template-columns:1fr;padding:32px;}
     .footer-grid{grid-template-columns:1fr;gap:36px;}
     .form-row{grid-template-columns:1fr;}
+  }
+  @media (max-width:768px){
+    .program-grid{grid-template-columns:1fr;} /* Menjadi 1 kolom di mobile */
   }
   @media (max-width:560px){
     .hero-stats{gap:20px;}
@@ -271,7 +276,7 @@
   </div>
 </section>
 
-<!-- ============ KENAPA PILIH BIMBEL SMART (concept 2 layout) ============ -->
+<!-- ============ KENAPA PILIH BIMBEL SMART ============ -->
 <section class="why" id="kenapa">
   <div class="wrap">
     <div class="why-visual reveal">
@@ -297,38 +302,105 @@
   </div>
 </section>
 
-<!-- ============ PROGRAM UNGGULAN (concept 1) ============ -->
+<!-- ============ PROGRAM UNGGULAN (UPDATED) ============ -->
 <section class="program" id="program">
   <div class="wrap">
     <div class="section-head center reveal">
       <span class="eyebrow" style="background:rgba(255,255,255,.12);color:#FFD877;">Program Kami</span>
       <h2>Program Unggulan Kami</h2>
-      <p>Pilih jenjang pendidikan yang sesuai dengan kebutuhan belajar anak Anda.</p>
+      <p>Pilih jenjang pendidikan dan program bahasa yang sesuai dengan kebutuhan belajar Anda.</p>
     </div>
+    
     <div class="program-grid reveal">
+      
+      <!-- 1. Preschool -->
+      <div class="program-card">
+        <div class="program-icon">
+          <svg viewBox="0 0 24 24" fill="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Preschool</h3>
+        <p>Pendidikan usia dini dengan pendekatan belajar sambil bermain untuk melatih kemampuan kognitif dan motorik anak secara menyenangkan.</p>
+        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px; margin-top: auto; align-self: flex-start;">Lihat Program</a>
+      </div>
+
+      <!-- 2. Program SD -->
       <div class="program-card">
         <div class="program-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19.5V6a2 2 0 012-2h9a2 2 0 012 2v13.5M4 19.5h13M4 19.5a1.5 1.5 0 001.5 1.5H17M15 5v14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h3>Program SD</h3>
-        <p>Fokus pada pembentukan konsep dasar dan pengembangan minat belajar sejak dini.</p>
-        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px;">Lihat Program</a>
+        <p>Fokus pada pembentukan konsep dasar dan pengembangan minat belajar sejak dini agar anak menyukai proses belajar.</p>
+        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px; margin-top: auto; align-self: flex-start;">Lihat Program</a>
       </div>
+
+      <!-- 3. Program SMP -->
       <div class="program-card">
         <div class="program-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h3>Program SMP</h3>
-        <p>Pendampingan intensif untuk menguasai materi sekolah dan siap menuju SMA favorit.</p>
-        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px;">Lihat Program</a>
+        <p>Pendampingan intensif untuk menguasai materi sekolah, bantu anak berprestasi, dan siap menuju SMA impian favorit.</p>
+        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px; margin-top: auto; align-self: flex-start;">Lihat Program</a>
       </div>
+
+      <!-- 4. Program SMA -->
       <div class="program-card">
         <div class="program-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M22 10L12 5 2 10l10 5 10-5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h3>Program SMA</h3>
-        <p>Persiapan matang menghadapi UTBK dan ujian sekolah dengan strategi belajar yang tepat.</p>
-        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px;">Lihat Program</a>
+        <p>Persiapan matang menghadapi ujian sekolah dan strategi ampuh tembus UTBK agar masuk Perguruan Tinggi Negeri incaran.</p>
+        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px; margin-top: auto; align-self: flex-start;">Lihat Program</a>
       </div>
+
+      <!-- 5. Kelas Online Reguler -->
+      <div class="program-card">
+        <div class="program-icon">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" ry="2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><line x1="8" y1="21" x2="16" y2="21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="17" x2="12" y2="21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Kelas Online Reguler</h3>
+        <p>Bimbingan belajar mata pelajaran sekolah secara daring dengan jadwal fleksibel, diakses dari rumah dengan tutor interaktif.</p>
+        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px; margin-top: auto; align-self: flex-start;">Lihat Program</a>
+      </div>
+
+      <!-- 6. Kelas Online Bahasa -->
+      <div class="program-card">
+        <div class="program-icon">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="12" cy="12" rx="4" ry="10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Kelas Online Bahasa</h3>
+        <p>Belajar bahasa asing dari mana saja. Menghadirkan suasana interaktif dan kolaboratif layaknya kelas offline, namun secara daring.</p>
+        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px; margin-top: auto; align-self: flex-start;">Lihat Program</a>
+      </div>
+
+      <!-- 7. Bahasa Inggris -->
+      <div class="program-card">
+        <div class="program-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Bahasa Inggris</h3>
+        <p>Program pengembangan Speaking, Listening, Reading, Writing & Grammar untuk membangun kompetensi unggul di akademik maupun karier global.</p>
+        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px; margin-top: auto; align-self: flex-start;">Lihat Program</a>
+      </div>
+
+      <!-- 8. Bahasa Mandarin -->
+      <div class="program-card">
+        <div class="program-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 8l6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Bahasa Mandarin</h3>
+        <p>Pembelajaran komprehensif untuk membangun kemampuan dan kepercayaan diri berkomunikasi dalam bahasa Mandarin di dunia pendidikan dan bisnis.</p>
+        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px; margin-top: auto; align-self: flex-start;">Lihat Program</a>
+      </div>
+
+      <!-- 9. TOEFL & IELTS -->
+      <div class="program-card">
+        <div class="program-icon">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>TOEFL & IELTS Prep</h3>
+        <p>Persiapan intensif sertifikasi internasional dengan strategi pengerjaan soal dan simulasi (Mock Test) untuk target studi ke luar negeri atau beasiswa.</p>
+        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px; margin-top: auto; align-self: flex-start;">Lihat Program</a>
+      </div>
+
     </div>
   </div>
 </section>
-
-<!-- ============ PARA PENGAJAR (baru) ============ -->
+<!-- ============ PARA PENGAJAR ============ -->
 <section class="teachers">
   <div class="wrap">
     <div class="section-head center reveal">
@@ -336,30 +408,26 @@
       <h2>Diajar oleh Lulusan Universitas Terbaik di Indonesia</h2>
       <p>Setiap tutor Bimbel Smart adalah lulusan kampus ternama, dipilih lewat proses seleksi ketat dan pelatihan mengajar berkelanjutan.</p>
     </div>
-    <!-- Placeholder logo kampus (dummy, dari layanan avatar generator - BUKAN logo resmi kampus). Ganti src <img> di bawah dengan logo universitas asli (misal src="logo-ui.png") sesuai daftar yang akan diberikan -->
     <div class="logo-grid reveal">
-      <div class="uni-badge">
-        <span class="uni-mark"><img src="https://ui-avatars.com/api/?name=Kampus+A&background=EEF1FC&color=2C3E9E&bold=true&size=64" alt="Logo dummy Kampus A"></span>
-        <span>Universitas Contoh A</span>
-      </div>
-      <div class="uni-badge">
-        <span class="uni-mark"><img src="https://ui-avatars.com/api/?name=Kampus+B&background=EEF1FC&color=2C3E9E&bold=true&size=64" alt="Logo dummy Kampus B"></span>
-        <span>Universitas Contoh B</span>
-      </div>
-      <div class="uni-badge">
-        <span class="uni-mark"><img src="https://ui-avatars.com/api/?name=Kampus+C&background=EEF1FC&color=2C3E9E&bold=true&size=64" alt="Logo dummy Kampus C"></span>
-        <span>Universitas Contoh C</span>
-      </div>
-      <div class="uni-badge">
-        <span class="uni-mark"><img src="https://ui-avatars.com/api/?name=Kampus+D&background=EEF1FC&color=2C3E9E&bold=true&size=64" alt="Logo dummy Kampus D"></span>
-        <span>Universitas Contoh D</span>
-      </div>
+      @forelse($universities as $uni)
+        <div class="uni-badge">
+          <span class="uni-mark">
+            @if($uni->getFirstMediaUrl('university_logos'))
+              <img src="{{ $uni->getFirstMediaUrl('university_logos') }}" alt="Logo {{ $uni->name }}">
+            @else
+              <img src="https://ui-avatars.com/api/?name={{ urlencode($uni->name) }}&background=EEF1FC&color=2C3E9E&bold=true&size=64" alt="Logo placeholder {{ $uni->name }}">
+            @endif
+          </span>
+          <span>{{ $uni->name }}</span>
+        </div>
+      @empty
+        <p>Belum ada universitas yang ditambahkan.</p>
+      @endforelse
     </div>
-    <p class="logo-note reveal">*Logo di atas adalah placeholder dummy (bukan logo resmi kampus) — siap diganti dengan logo universitas asli begitu daftarnya kamu kirim.</p>
   </div>
 </section>
 
-<!-- ============ BLOG & TIPS BELAJAR (concept 1) ============ -->
+<!-- ============ BLOG & TIPS BELAJAR ============ -->
 <section class="blog" id="blog">
   <div class="wrap">
     <div class="blog-head-row reveal">
@@ -402,7 +470,7 @@
   </div>
 </section>
 
-<!-- ============ GALERI (concept 1) ============ -->
+<!-- ============ GALERI ============ -->
 <section class="gallery" id="galeri">
   <div class="wrap">
     <div class="section-head center reveal">
@@ -435,7 +503,7 @@
   </div>
 </section>
 
-<!-- ============ HUBUNGI KAMI (concept 1) ============ -->
+<!-- ============ HUBUNGI KAMI ============ -->
 <section class="contact" id="kontak">
   <div class="wrap">
     <div class="contact-card reveal">
@@ -464,17 +532,37 @@
           </div>
         </div>
       </div>
-      <form class="contact-form" id="contactForm">
+      <form class="contact-form" method="POST" action="{{ route('kontak.submit') }}">
+        @csrf
         <div class="form-row">
-          <div class="field"><label for="nama">Nama Lengkap</label><input id="nama" type="text" placeholder="Nama kamu" required></div>
-          <div class="field"><label for="email">Alamat Email</label><input id="email" type="email" placeholder="email@contoh.com" required></div>
+          <div class="field">
+            <label for="name">Nama Lengkap</label>
+            <input id="name" name="name" type="text" placeholder="Nama kamu" value="{{ old('name') }}" required>
+          </div>
+          <div class="field">
+            <label for="phone">No. Telepon</label>
+            <input id="phone" name="phone" type="tel" placeholder="08xx-xxxx-xxxx" value="{{ old('phone') }}" required>
+          </div>
         </div>
+        
         <div class="field full" style="margin-bottom:16px;">
-          <label for="pesan">Pesan Kamu</label>
-          <textarea id="pesan" placeholder="Ceritakan kebutuhan belajarmu di sini..." required></textarea>
+          <label for="email">Alamat Email</label>
+          <input id="email" name="email" type="email" placeholder="email@contoh.com" value="{{ old('email') }}">
         </div>
+
+        <div class="field full" style="margin-bottom:16px;">
+          <label for="message">Pesan Kamu</label>
+          <textarea id="message" name="message" placeholder="Ceritakan kebutuhan belajarmu di sini..." required>{{ old('message') }}</textarea>
+        </div>
+        
         <button type="submit" class="btn btn-primary btn-block">Kirim Pesan Sekarang</button>
-        <p class="form-status" id="formStatus"></p>
+        
+        <!-- Notifikasi Sukses dari Controller -->
+        @if(session('success'))
+          <p class="form-status" style="color: #1E7A3D; background: #EAF6EE; padding: 10px; border-radius: 8px; margin-top: 12px; font-weight: 600;">
+            {{ session('success') }}
+          </p>
+        @endif
       </form>
     </div>
   </div>
@@ -482,14 +570,4 @@
 @endsection
 
 @push('scripts')
-<script>
-// Contact form (demo only, no backend)
-  const contactForm = document.getElementById('contactForm');
-  const formStatus = document.getElementById('formStatus');
-  contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    formStatus.textContent = 'Terima kasih! Pesanmu sudah terkirim, tim kami akan segera menghubungi.';
-    contactForm.reset();
-  });
-</script>
 @endpush

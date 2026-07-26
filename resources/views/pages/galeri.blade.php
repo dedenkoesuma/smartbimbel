@@ -155,89 +155,33 @@
     </div>
 
     <div class="filter-row reveal">
-      <button class="filter-pill active" data-filter="semua">Semua</button>
-      <button class="filter-pill" data-filter="kelas">Kelas Interaktif</button>
-      <button class="filter-pill" data-filter="tryout">Try Out</button>
-      <button class="filter-pill" data-filter="kampus">Kunjungan Kampus</button>
-      <button class="filter-pill" data-filter="wisuda">Wisuda</button>
-      <button class="filter-pill" data-filter="lainnya">Kegiatan Lainnya</button>
-    </div>
+  <button class="filter-pill active" data-filter="semua">Semua</button>
+  @foreach($categories as $cat)
+    <button class="filter-pill" data-filter="{{ $cat }}">{{ $cat }}</button>
+  @endforeach
+</div>
 
     <div class="gal-grid reveal" id="galGrid">
-
-      <div class="gal-item" data-category="kelas" data-caption="Kelas Interaktif Program SD" data-date="Jun 2026">
-        <img src="https://images.pexels.com/photos/35782382/pexels-photo-35782382.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Kelas interaktif Program SD (foto stok)">
-        <div class="gal-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <div class="gal-overlay"><div class="info"><strong>Kelas Interaktif Program SD</strong><span>Juni 2026</span></div></div>
+  @forelse($galleries as $gallery)
+    <div class="gal-item"
+         data-category="{{ $gallery->category }}"
+         data-caption="{{ $gallery->title }}"
+         data-date="{{ \Carbon\Carbon::parse($gallery->date)->locale('id')->translatedFormat('F Y') }}">
+      <img src="{{ $gallery->getFirstMediaUrl('gallery_images') }}" alt="{{ $gallery->title }}">
+      <div class="gal-zoom">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
       </div>
-
-      <div class="gal-item" data-category="tryout" data-caption="Try Out UTBK Bersama" data-date="Jun 2026">
-        <img src="https://images.pexels.com/photos/6684209/pexels-photo-6684209.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Try out UTBK bersama (foto stok)">
-        <div class="gal-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <div class="gal-overlay"><div class="info"><strong>Try Out UTBK Bersama</strong><span>Juni 2026</span></div></div>
+      <div class="gal-overlay">
+        <div class="info">
+          <strong>{{ $gallery->title }}</strong>
+          <span>{{ \Carbon\Carbon::parse($gallery->date)->locale('id')->translatedFormat('F Y') }}</span>
+        </div>
       </div>
-
-      <div class="gal-item" data-category="kampus" data-caption="Kunjungan ke Kampus Mitra" data-date="Mei 2026">
-        <img src="https://images.pexels.com/photos/7972512/pexels-photo-7972512.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Kunjungan ke kampus mitra (foto stok)">
-        <div class="gal-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <div class="gal-overlay"><div class="info"><strong>Kunjungan ke Kampus Mitra</strong><span>Mei 2026</span></div></div>
-      </div>
-
-      <div class="gal-item" data-category="wisuda" data-caption="Wisuda Angkatan Bimbel Smart" data-date="Mei 2026">
-        <img src="https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Wisuda angkatan Bimbel Smart (foto stok)">
-        <div class="gal-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <div class="gal-overlay"><div class="info"><strong>Wisuda Angkatan Bimbel Smart</strong><span>Mei 2026</span></div></div>
-      </div>
-
-      <div class="gal-item" data-category="kelas" data-caption="Diskusi Kelas SMP" data-date="Apr 2026">
-        <img src="https://images.pexels.com/photos/18931270/pexels-photo-18931270.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Diskusi kelas SMP (foto stok)">
-        <div class="gal-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <div class="gal-overlay"><div class="info"><strong>Diskusi Kelas SMP</strong><span>April 2026</span></div></div>
-      </div>
-
-      <div class="gal-item" data-category="lainnya" data-caption="Pojok Baca Siswa" data-date="Apr 2026">
-        <img src="https://images.pexels.com/photos/8926887/pexels-photo-8926887.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Pojok baca siswa (foto stok)">
-        <div class="gal-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <div class="gal-overlay"><div class="info"><strong>Pojok Baca Siswa</strong><span>April 2026</span></div></div>
-      </div>
-
-      <div class="gal-item" data-category="kelas" data-caption="Bimbingan Satu-Satu" data-date="Mar 2026">
-        <img src="https://images.pexels.com/photos/8926900/pexels-photo-8926900.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Bimbingan satu-satu (foto stok)">
-        <div class="gal-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <div class="gal-overlay"><div class="info"><strong>Bimbingan Satu-Satu</strong><span>Maret 2026</span></div></div>
-      </div>
-
-      <div class="gal-item" data-category="lainnya" data-caption="Story Time Bersama" data-date="Mar 2026">
-        <img src="https://images.pexels.com/photos/10638213/pexels-photo-10638213.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Story time bersama (foto stok)">
-        <div class="gal-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <div class="gal-overlay"><div class="info"><strong>Story Time Bersama</strong><span>Maret 2026</span></div></div>
-      </div>
-
-      <div class="gal-item" data-category="tryout" data-caption="Belajar Kelompok Sebelum Try Out" data-date="Feb 2026">
-        <img src="https://images.pexels.com/photos/9572630/pexels-photo-9572630.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Belajar kelompok sebelum try out (foto stok)">
-        <div class="gal-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <div class="gal-overlay"><div class="info"><strong>Belajar Kelompok Sebelum Try Out</strong><span>Februari 2026</span></div></div>
-      </div>
-
-      <div class="gal-item" data-category="lainnya" data-caption="Kelas Komputer & Riset" data-date="Feb 2026">
-        <img src="https://images.pexels.com/photos/5621944/pexels-photo-5621944.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Kelas komputer dan riset (foto stok)">
-        <div class="gal-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <div class="gal-overlay"><div class="info"><strong>Kelas Komputer &amp; Riset</strong><span>Februari 2026</span></div></div>
-      </div>
-
-      <div class="gal-item" data-category="kelas" data-caption="Sesi Tutor Privat" data-date="Jan 2026">
-        <img src="https://images.pexels.com/photos/6325982/pexels-photo-6325982.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Sesi tutor privat (foto stok)">
-        <div class="gal-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <div class="gal-overlay"><div class="info"><strong>Sesi Tutor Privat</strong><span>Januari 2026</span></div></div>
-      </div>
-
-      <div class="gal-item" data-category="lainnya" data-caption="Waktu Membaca Mandiri" data-date="Jan 2026">
-        <img src="https://images.pexels.com/photos/6214651/pexels-photo-6214651.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Waktu membaca mandiri (foto stok)">
-        <div class="gal-zoom"><svg viewBox="0 0 24 24" fill="none"><path d="M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <div class="gal-overlay"><div class="info"><strong>Waktu Membaca Mandiri</strong><span>Januari 2026</span></div></div>
-      </div>
-
     </div>
+  @empty
+    <p>Belum ada foto galeri.</p>
+  @endforelse
+</div>
     <p class="empty-state" id="emptyState">Belum ada foto untuk kategori ini.</p>
   </div>
 </section>

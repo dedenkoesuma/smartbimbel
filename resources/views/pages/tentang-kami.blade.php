@@ -318,7 +318,6 @@
     </div>
   </div>
 </section>
-
 <!-- ============ TIM KAMI ============ -->
 <section class="team">
   <div class="wrap">
@@ -327,26 +326,25 @@
       <h2>Orang-Orang di Balik Bimbel Smart</h2>
       <p>Dipimpin oleh tim yang berpengalaman di bidang pendidikan dan pengelolaan bimbingan belajar.</p>
     </div>
-    <!-- Data tim masih dummy — ganti nama, jabatan, dan foto dengan data tim asli -->
     <div class="team-grid reveal">
-      <div class="team-card">
-        <div class="team-photo"><img src="https://ui-avatars.com/api/?name=Nadia+Putri&background=FFD877&color=141B4D&bold=true&size=128" alt="Foto placeholder Nadia Putri"></div>
-        <div class="team-info"><h4>Nadia Putri</h4><span>Founder &amp; Direktur</span></div>
-      </div>
-      <div class="team-card">
-        <div class="team-photo"><img src="https://ui-avatars.com/api/?name=Bima+Satria&background=FFD877&color=141B4D&bold=true&size=128" alt="Foto placeholder Bima Satria"></div>
-        <div class="team-info"><h4>Bima Satria</h4><span>Kepala Akademik</span></div>
-      </div>
-      <div class="team-card">
-        <div class="team-photo"><img src="https://ui-avatars.com/api/?name=Rina+Wulandari&background=FFD877&color=141B4D&bold=true&size=128" alt="Foto placeholder Rina Wulandari"></div>
-        <div class="team-info"><h4>Rina Wulandari</h4><span>Koordinator Tutor</span></div>
-      </div>
-      <div class="team-card">
-        <div class="team-photo"><img src="https://ui-avatars.com/api/?name=Dimas+Aditya&background=FFD877&color=141B4D&bold=true&size=128" alt="Foto placeholder Dimas Aditya"></div>
-        <div class="team-info"><h4>Dimas Aditya</h4><span>Kepala Operasional</span></div>
-      </div>
+      @forelse($teams as $member)
+        <div class="team-card">
+          <div class="team-photo">
+            @if($member->getFirstMediaUrl('team_images'))
+              <img src="{{ $member->getFirstMediaUrl('team_images') }}" alt="Foto {{ $member->name }}">
+            @else
+              <img src="https://ui-avatars.com/api/?name={{ urlencode($member->name) }}&background=FFD877&color=141B4D&bold=true&size=128" alt="Foto placeholder {{ $member->name }}">
+            @endif
+          </div>
+          <div class="team-info">
+            <h4>{{ $member->name }}</h4>
+            <span>{{ $member->position }}</span>
+          </div>
+        </div>
+      @empty
+        <p>Belum ada data tim yang ditambahkan.</p>
+      @endforelse
     </div>
-    <p class="team-note reveal">*Nama, jabatan, dan foto di atas masih data dummy — siap diganti dengan data tim asli.</p>
   </div>
 </section>
 
