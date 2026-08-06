@@ -134,14 +134,25 @@
       <h1>Momen Belajar di Bimbel Smart</h1>
       <p class="lead">Cuplikan suasana kelas, try out, kunjungan kampus, sampai hari wisuda para siswa kami.</p>
     </div>
-    <div class="mosaic reveal">
-      <div class="mosaic-item m1"><img src="https://images.pexels.com/photos/18931270/pexels-photo-18931270.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Kelas interaktif (foto stok)"></div>
-      <div class="mosaic-item m2"><img src="https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Wisuda siswa (foto stok)"></div>
-      <div class="mosaic-item m3"><img src="https://images.pexels.com/photos/7972512/pexels-photo-7972512.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Kunjungan kampus (foto stok)"></div>
-      <div class="mosaic-item m4"><img src="https://images.pexels.com/photos/6684209/pexels-photo-6684209.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Try out (foto stok)"></div>
-      <div class="mosaic-item m5"><img src="https://images.pexels.com/photos/35782382/pexels-photo-35782382.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Guru dan siswa (foto stok)"></div>
-      <div class="mosaic-item m6"><img src="https://images.pexels.com/photos/8926887/pexels-photo-8926887.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Pojok baca siswa (foto stok)"></div>
-    </div>
+      <div class="mosaic reveal">
+        <!-- Meja belajar dari atas (Buku dan kacamata) -->
+        <div class="mosaic-item m1"><img src="https://images.pexels.com/photos/301920/pexels-photo-301920.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Meja belajar dan buku"></div>
+        
+        <!-- Topi Toga dan Ijazah di atas meja (Wisuda, tanpa orang) -->
+        <div class="mosaic-item m2"><img src="https://images.pexels.com/photos/1205651/pexels-photo-1205651.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Topi toga dan ijazah"></div>
+        
+        <!-- Lorong rak buku perpustakaan (Fasilitas) -->
+        <div class="mosaic-item m3"><img src="https://images.pexels.com/photos/256502/pexels-photo-256502.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Rak buku perpustakaan"></div>
+        
+        <!-- Tangan sedang menulis di atas kertas (Try out/Ujian) -->
+        <div class="mosaic-item m4"><img src="https://images.pexels.com/photos/3729557/pexels-photo-3729557.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Siswa sedang try out"></div>
+        
+        <!-- Tangan mengetik di laptop (Fokus belajar/coding) -->
+        <div class="mosaic-item m5"><img src="https://images.pexels.com/photos/5905709/pexels-photo-5905709.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Fokus belajar mandiri di laptop"></div>
+        
+        <!-- Tumpukan buku estetik (Pojok baca/materi) -->
+        <div class="mosaic-item m6"><img src="https://images.pexels.com/photos/46274/pexels-photo-46274.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Tumpukan buku pelajaran"></div>
+      </div>
   </div>
 </section>
 

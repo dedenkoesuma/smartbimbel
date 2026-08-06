@@ -166,11 +166,11 @@
 
         <div class="contact-row">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1118 0z" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="10" r="3" stroke="#fff" stroke-width="1.8"/></svg></div>
-          <div><strong>Alamat</strong><span>Jl. Pendidikan Raya No. 45, Jakarta Selatan, 12550</span></div>
+          <div><strong>Alamat</strong><span>Menara Tendean Lantai 17 Unit C, Jalan Kapten Tendean No. 20C, Kelurahan: Kuningan Barat, Kecamatan: Mampang Prapatan, 12720</span></div>
         </div>
         <div class="contact-row">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.7a2 2 0 01-.5 2.1L8 9.7a16 16 0 006.3 6.3l1.2-1.2a2 2 0 012.1-.5c.9.3 1.8.5 2.7.6a2 2 0 011.7 2.1z" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <div><strong>Telepon / WhatsApp</strong><span>+62 812-3456-7890</span></div>
+          <div><strong>Telepon / WhatsApp</strong><span>021-7985454 / 0858 8148 6381</span></div>
         </div>
         <div class="contact-row">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4V4z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 6l8 7 8-7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -178,9 +178,9 @@
         </div>
 
         <div class="socials">
-          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg></a>
-          <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none"><path d="M14 3v10.5a3.5 3.5 0 11-3-3.46V7.2A6.5 6.5 0 1017 13.7V9.3a6.9 6.9 0 004 1.3V7.4A4 4 0 0117 3h-3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></a>
-          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="6" width="19" height="12" rx="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M10.5 9.5l5 2.5-5 2.5v-5z" fill="currentColor"/></svg></a>
+            <a href="https://www.instagram.com/bimbelsmart__/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg></a>
+            <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none"><path d="M14 9h3V6h-3a3 3 0 00-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14V9z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></a>
+            <a href="https://www.tiktok.com/@bimbelprivatsmart" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none"><path d="M14 4c.3 2 1.8 3.5 4 3.8v3c-1.5 0-2.9-.4-4-1.2v6.1a4.9 4.9 0 11-4.2-4.9v3.1a1.9 1.9 0 101.4 1.8V4h2.8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></a>
         </div>
       </div>
 
@@ -242,13 +242,13 @@
     <div class="map-hours-grid reveal">
       <div class="map-box">
         <div class="map-pin"><svg viewBox="0 0 24 24" fill="none"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1118 0z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="1.8"/></svg>Kantor Pusat Bimbel Smart</div>
-        <iframe src="https://www.google.com/maps?q=Jakarta%20Selatan&output=embed" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Lokasi Bimbel Smart"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7932.364042806908!2d106.81493999357912!3d-6.239724899999977!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3c080e2477d%3A0x10a81b643b21abac!2sMTen%20%2F%20Menara%20Tendean!5e0!3m2!1sen!2sus!4v1785998357159!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
       <div class="hours-card">
         <h3><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Jam Operasional</h3>
         <div class="hours-list">
-          <div class="hours-row"><span>Senin - Jumat</span><span>08.00 - 20.00</span></div>
-          <div class="hours-row"><span>Sabtu</span><span>09.00 - 17.00</span></div>
+          <div class="hours-row"><span>Operasional Kantor</span><span>08.00 - 17.30</span></div>
+          <div class="hours-row"><span>Operasional Admin</span><span>08.00 - 20.00</span></div>
           <div class="hours-row off"><span>Minggu</span><span>Tutup</span></div>
           <div class="hours-row"><span>Hari Libur Nasional</span><span>Tutup</span></div>
         </div>

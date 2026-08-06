@@ -3,7 +3,7 @@
     <div class="footer-grid">
       <div class="footer-about">
         <div class="footer-logo">
-          <img src="{{ asset('assets/logo.png') }}" alt="Logo Bimbel Smart" style="height: 50px; width: auto;">
+          <img src="{{ asset('assets/logo-light.png') }}" alt="Logo Bimbel Smart" style="height: 50px; width: auto;">
         </div>
         <p>Bimbingan belajar terpercaya yang mengedepankan metode belajar menyenangkan dan hasil yang maksimal. Bergabunglah dengan ribuan siswa sukses lainnya.</p>
       </div>

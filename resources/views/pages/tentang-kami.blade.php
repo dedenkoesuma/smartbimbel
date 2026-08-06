@@ -392,7 +392,7 @@
       <h2>Yuk, Mulai Perjalanan Belajar Bersama Kami</h2>
       <p>Konsultasikan kebutuhan belajar anak Anda secara gratis dengan tim Bimbel Smart hari ini.</p>
       <div class="cta-actions">
-        <a href="{{ route('home') }}#kontak" class="btn btn-primary">Hubungi Kami</a>
+        <a href="{{ route('kontak') }}#form-kontak" class="btn btn-primary">Hubungi Kami</a>
         <a href="{{ route('home') }}#program" class="btn btn-outline-light">Lihat Program</a>
       </div>
     </div>

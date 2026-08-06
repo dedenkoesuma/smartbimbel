@@ -9,6 +9,7 @@ use App\Models\University;
 use App\Models\Gallery;
 use App\Models\ContactMessage;
 use App\Models\Post;
+
 class PageController extends Controller
 {
     public function tentangKami()
@@ -17,25 +18,30 @@ class PageController extends Controller
         $universities = University::where('is_active', true)->orderBy('order')->get();
         return view('pages.tentang-kami', compact('teams', 'universities'));
     }
+
     public function home()
     {
-        // Ubah query Program menjadi sederhana, urutkan berdasarkan title
         $programs = Program::orderBy('title', 'asc')->get();
-        
-        // Tabel University tidak kita ubah, jadi biarkan seperti semula
         $universities = University::where('is_active', true)->orderBy('order')->get();
 
-        return view('pages.home', compact('programs', 'universities'));
-    }
+        // FIX: sebelumnya variabel ini tidak pernah dikirim ke view,
+        // padahal home.blade.php sudah pakai @if($featuredPosts->count()) —
+        // tanpa ini halaman Home langsung error "Undefined variable".
+        $featuredPosts = Post::where('is_active', true)
+            ->where('is_featured', true)
+            ->orderByDesc('published_at')
+            ->take(3)
+            ->get();
 
+        return view('pages.home', compact('programs', 'universities', 'featuredPosts'));
+    }
 
     public function layanan()
     {
-        // Ubah juga query Program di halaman layanan
         $programs = Program::orderBy('title', 'asc')->get();
-        
         return view('pages.layanan', compact('programs'));
     }
+
     public function galeri()
     {
         $galleries = Gallery::where('is_active', true)->orderBy('order')->get();
@@ -46,48 +52,48 @@ class PageController extends Controller
 
     public function kontak()
     {
-        // Mengambil semua program dan diurutkan berdasarkan abjad
+        // Halaman Kontak menampilkan dropdown "Program yang Diminati"
         $programs = Program::orderBy('title', 'asc')->get();
-        
         return view('pages.kontak', compact('programs'));
     }
-   public function blog()
-{
-    $featured = Post::where('is_active', true)->where('is_featured', true)
-        ->orderByDesc('published_at')->first();
 
-    $posts = Post::where('is_active', true)
-        ->when($featured, fn ($q) => $q->where('id', '!=', $featured->id))
-        ->orderByDesc('published_at')
-        ->get();
+    public function blog()
+    {
+        $featured = Post::where('is_active', true)->where('is_featured', true)
+            ->orderByDesc('published_at')->first();
 
-    return view('pages.blog', compact('featured', 'posts'));
-}
+        $posts = Post::where('is_active', true)
+            ->when($featured, fn ($q) => $q->where('id', '!=', $featured->id))
+            ->orderByDesc('published_at')
+            ->get();
 
-        public function blogShow($slug)
-        {
-            $post = Post::where('slug', $slug)->where('is_active', true)->firstOrFail();
+        return view('pages.blog', compact('featured', 'posts'));
+    }
 
-            $related = Post::where('id', '!=', $post->id)
+    public function blogShow($slug)
+    {
+        $post = Post::where('slug', $slug)->where('is_active', true)->firstOrFail();
+
+        $related = Post::where('id', '!=', $post->id)
+            ->where('is_active', true)
+            ->where('category', $post->category)
+            ->orderByDesc('published_at')
+            ->take(3)
+            ->get();
+
+        if ($related->count() < 3) {
+            $filler = Post::where('id', '!=', $post->id)
                 ->where('is_active', true)
-                ->where('category', $post->category)
+                ->whereNotIn('id', $related->pluck('id'))
                 ->orderByDesc('published_at')
-                ->take(3)
+                ->take(3 - $related->count())
                 ->get();
-
-            if ($related->count() < 3) {
-                $filler = Post::where('id', '!=', $post->id)
-                    ->where('is_active', true)
-                    ->whereNotIn('id', $related->pluck('id'))
-                    ->orderByDesc('published_at')
-                    ->take(3 - $related->count())
-                    ->get();
-                $related = $related->merge($filler);
-            }
-
-            return view('pages.blog-detail', compact('post', 'related'));
+            $related = $related->merge($filler);
         }
-    // Fungsi untuk memproses form kontak
+
+        return view('pages.blog-detail', compact('post', 'related'));
+    }
+
     public function submitKontak(Request $request)
     {
         $validated = $request->validate([

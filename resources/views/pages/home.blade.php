@@ -127,7 +127,7 @@
   .uni-badge span{font-size:12.5px;font-weight:700;color:var(--ink-soft);text-align:center;}
   .logo-note{margin-top:18px;font-size:13px;color:var(--ink-soft);text-align:center;}
 
-  /* ============ BLOG ============ */
+  /* ============ BLOG (ARTIKEL PILIHAN) ============ */
   .blog{padding:100px 0;background:var(--blue-tint);}
   .blog-head-row{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;flex-wrap:wrap;gap:20px;}
   .blog-head-row .section-head{margin-bottom:0;}
@@ -400,6 +400,7 @@
     </div>
   </div>
 </section>
+
 <!-- ============ PARA PENGAJAR ============ -->
 <section class="teachers">
   <div class="wrap">
@@ -427,7 +428,17 @@
   </div>
 </section>
 
-<!-- ============ BLOG & TIPS BELAJAR ============ -->
+<!-- ============ BLOG & TIPS BELAJAR (ARTIKEL PILIHAN) ============ -->
+@php
+  $homeCategoryLabels = [
+    'tips' => 'Tips Belajar',
+    'info' => 'Info Pendidikan',
+    'sukses' => 'Cerita Sukses',
+    'english' => 'English Corner',
+    'parenting' => 'Parenting',
+  ];
+@endphp
+@if($featuredPosts->count())
 <section class="blog" id="blog">
   <div class="wrap">
     <div class="blog-head-row reveal">
@@ -439,36 +450,27 @@
       <a href="{{ route('blog') }}" class="link-arrow">Lihat Semua Artikel <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
     <div class="blog-grid reveal">
-      <article class="blog-card">
-        <div class="blog-thumb t1"><img src="https://images.pexels.com/photos/6325982/pexels-photo-6325982.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Sesi belajar online (foto stok)"><span class="blog-tag">Tips Belajar</span></div>
-        <div class="blog-body">
-          <span class="blog-date">20 Jun 2026 &middot; 3 min baca</span>
-          <h3>5 Cara Ampuh Mengatasi Rasa Malas Saat Belajar Mandiri</h3>
-          <p>Belajar di rumah memang menantang, ini tips ringan agar semangat belajar tetap terjaga.</p>
-          <a href="#" class="link-arrow">Baca Selengkapnya <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </article>
-      <article class="blog-card">
-        <div class="blog-thumb t2"><img src="https://images.pexels.com/photos/6684209/pexels-photo-6684209.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Siswa mengerjakan ujian (foto stok)"><span class="blog-tag">Info Pendidikan</span></div>
-        <div class="blog-body">
-          <span class="blog-date">18 Jun 2026 &middot; 4 min baca</span>
-          <h3>Update Terbaru Jadwal UTBK 2026: Apa Saja yang Berubah?</h3>
-          <p>Simak perubahan penting jadwal UTBK tahun ini agar persiapanmu tidak meleset.</p>
-          <a href="#" class="link-arrow">Baca Selengkapnya <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </article>
-      <article class="blog-card">
-        <div class="blog-thumb t3"><img src="https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Wisuda mahasiswa (foto stok)"><span class="blog-tag">Cerita Sukses</span></div>
-        <div class="blog-body">
-          <span class="blog-date">15 Jun 2026 &middot; 5 min baca</span>
-          <h3>Dari Bimbel Gratis ke Kampus Impian: Kisah Perjuangan Budi</h3>
-          <p>Kisah inspiratif seorang siswa yang membuktikan kerja keras selalu berbuah manis.</p>
-          <a href="#" class="link-arrow">Baca Selengkapnya <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </article>
+      @foreach($featuredPosts as $item)
+        <article class="blog-card">
+          <div class="blog-thumb">
+            <img src="{{ $item->getFirstMediaUrl('post_images') }}" alt="{{ $item->title }}">
+            <span class="blog-tag">{{ $homeCategoryLabels[$item->category] ?? $item->category }}</span>
+          </div>
+          <div class="blog-body">
+            <span class="blog-date">{{ $item->published_at?->translatedFormat('d M Y') }} &middot; {{ $item->read_time }} min baca</span>
+            <h3>{{ $item->title }}</h3>
+            <p>{{ \Illuminate\Support\Str::limit($item->excerpt, 100) }}</p>
+            <a href="{{ route('blog.show', $item->slug) }}" class="link-arrow">
+              Baca Selengkapnya
+              <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+      @endforeach
     </div>
   </div>
 </section>
+@endif
 
 <!-- ============ GALERI ============ -->
 <section class="gallery" id="galeri">
@@ -480,22 +482,28 @@
     </div>
     <div class="gallery-grid reveal">
       <div class="gallery-item g1">
-        <img src="https://images.pexels.com/photos/35782382/pexels-photo-35782382.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop" alt="Kelas interaktif dengan guru dan siswa (foto stok)">
+        <img src="https://images.unsplash.com/photo-1568667256549-094345857637?auto=format&fit=crop&w=800&q=80" alt="Fasilitas perpustakaan dan ruang baca">
         <div class="tint"></div>
-        <span class="caption">Kelas Interaktif</span>
+        <span class="caption">Fasilitas Belajar</span>
       </div>
+      
       <div class="gallery-item g2">
-        <img src="https://images.pexels.com/photos/6684209/pexels-photo-6684209.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop" alt="Siswa mengerjakan try out (foto stok)">
+        <!-- Try Out Bersama: Tangan sedang menulis di atas kertas ujian -->
+        <img src="https://images.pexels.com/photos/3729557/pexels-photo-3729557.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Mengerjakan soal try out">
         <div class="tint"></div>
         <span class="caption">Try Out Bersama</span>
       </div>
+      
       <div class="gallery-item g3">
-        <img src="https://images.pexels.com/photos/7972512/pexels-photo-7972512.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop" alt="Kunjungan ke kampus universitas (foto stok)">
+        <!-- Kunjungan Kampus: Tampak luar gedung dengan arsitektur klasik -->
+        <img src="https://images.pexels.com/photos/356065/pexels-photo-356065.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tampak luar gedung kampus universitas">
         <div class="tint"></div>
         <span class="caption">Kunjungan Kampus</span>
       </div>
+      
       <div class="gallery-item g4">
-        <img src="https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop" alt="Wisuda angkatan mahasiswa (foto stok)">
+        <!-- Wisuda Angkatan: Topi toga dan ijazah di atas meja -->
+        <img src="https://images.pexels.com/photos/1205651/pexels-photo-1205651.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Topi toga dan ijazah">
         <div class="tint"></div>
         <span class="caption">Wisuda Angkatan</span>
       </div>
@@ -517,18 +525,18 @@
         </div>
         <div class="contact-row">
           <span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-6.1-7-11a7 7 0 1114 0c0 4.9-7 11-7 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.6"/></svg></span>
-          <div><strong>Kunjungi Kantor</strong><span>Jl. Pendidikan No. 123, Jakarta Selatan</span></div>
+          <div><strong>Kunjungi Kantor</strong><span>Menara Tendean Lantai 17 Unit C, Jalan Kapten Tendean No. 20C, Kelurahan: Kuningan Barat, Kecamatan: Mampang Prapatan, 12720</span></div>
         </div>
         <div class="contact-row">
           <span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.1-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.7a2 2 0 01-.5 2.1L8 9.7a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.9.3 1.8.5 2.7.6a2 2 0 011.7 2z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <div><strong>WhatsApp Admin</strong><span>+62 812-3456-7890</span></div>
+          <div><strong>WhatsApp Admin</strong><span>+62 858 8148 6381</span></div>
         </div>
         <div>
           <strong style="font-size:14.5px;display:block;margin-bottom:8px;">Ikuti Kami</strong>
           <div class="socials">
-            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg></a>
+            <a href="https://www.instagram.com/bimbelsmart__/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg></a>
             <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none"><path d="M14 9h3V6h-3a3 3 0 00-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14V9z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></a>
-            <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none"><path d="M14 4c.3 2 1.8 3.5 4 3.8v3c-1.5 0-2.9-.4-4-1.2v6.1a4.9 4.9 0 11-4.2-4.9v3.1a1.9 1.9 0 101.4 1.8V4h2.8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></a>
+            <a href="https://www.tiktok.com/@bimbelprivatsmart" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none"><path d="M14 4c.3 2 1.8 3.5 4 3.8v3c-1.5 0-2.9-.4-4-1.2v6.1a4.9 4.9 0 11-4.2-4.9v3.1a1.9 1.9 0 101.4 1.8V4h2.8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></a>
           </div>
         </div>
       </div>
@@ -544,7 +552,7 @@
             <input id="phone" name="phone" type="tel" placeholder="08xx-xxxx-xxxx" value="{{ old('phone') }}" required>
           </div>
         </div>
-        
+
         <div class="field full" style="margin-bottom:16px;">
           <label for="email">Alamat Email</label>
           <input id="email" name="email" type="email" placeholder="email@contoh.com" value="{{ old('email') }}">
@@ -554,9 +562,9 @@
           <label for="message">Pesan Kamu</label>
           <textarea id="message" name="message" placeholder="Ceritakan kebutuhan belajarmu di sini..." required>{{ old('message') }}</textarea>
         </div>
-        
+
         <button type="submit" class="btn btn-primary btn-block">Kirim Pesan Sekarang</button>
-        
+
         <!-- Notifikasi Sukses dari Controller -->
         @if(session('success'))
           <p class="form-status" style="color: #1E7A3D; background: #EAF6EE; padding: 10px; border-radius: 8px; margin-top: 12px; font-weight: 600;">
