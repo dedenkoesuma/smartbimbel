@@ -141,13 +141,13 @@
         <!-- Topi Toga dan Ijazah di atas meja (Wisuda, tanpa orang) -->
         <div class="mosaic-item m2"><img src="https://images.pexels.com/photos/1205651/pexels-photo-1205651.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Topi toga dan ijazah"></div>
         
-        <!-- Lorong rak buku perpustakaan (Fasilitas) -->
-        <div class="mosaic-item m3"><img src="https://images.pexels.com/photos/256502/pexels-photo-256502.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Rak buku perpustakaan"></div>
+        <!-- Lorong rak buku perpustakaan (Pengganti gambar kodingan) -->
+        <div class="mosaic-item m3"><img src="https://images.pexels.com/photos/207662/pexels-photo-207662.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Rak buku perpustakaan"></div>
         
         <!-- Tangan sedang menulis di atas kertas (Try out/Ujian) -->
         <div class="mosaic-item m4"><img src="https://images.pexels.com/photos/3729557/pexels-photo-3729557.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Siswa sedang try out"></div>
         
-        <!-- Tangan mengetik di laptop (Fokus belajar/coding) -->
+        <!-- Tangan mengetik di laptop (Fokus belajar) -->
         <div class="mosaic-item m5"><img src="https://images.pexels.com/photos/5905709/pexels-photo-5905709.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Fokus belajar mandiri di laptop"></div>
         
         <!-- Tumpukan buku estetik (Pojok baca/materi) -->
