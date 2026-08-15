@@ -24,6 +24,10 @@ class UniversityResource extends Resource
     protected static ?string $model = University::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-building-library';
+    protected static ?string $navigationGroup = 'Halaman Beranda';
+    protected static ?string $navigationLabel = 'Universitas ';
+    protected static ?string $pluralModelLabel = 'Universitas ';
+    protected static ?string $modelLabel = 'Universitas ';
 
    public static function form(Form $form): Form
     {
@@ -76,6 +80,7 @@ class UniversityResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

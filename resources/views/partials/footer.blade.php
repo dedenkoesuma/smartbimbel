@@ -20,9 +20,12 @@
       <div class="footer-col">
         <h4>Newsletter</h4>
         <p style="font-size:14px;margin-bottom:14px;">Dapatkan info promo dan tips belajar gratis.</p>
-        <form class="newsletter-form" id="newsletterForm">
-          <input type="email" placeholder="Email kamu" required>
-          <button type="submit" aria-label="Subscribe"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <form class="newsletter-form" action="{{ route('newsletter.submit') }}" method="POST">
+          @csrf
+          <input type="email" name="email" placeholder="Email kamu" required>
+          <button type="submit" aria-label="Subscribe">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
         </form>
       </div>
     </div>

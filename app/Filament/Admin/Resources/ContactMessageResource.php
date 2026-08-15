@@ -22,6 +22,10 @@ class ContactMessageResource extends Resource
     protected static ?string $model = ContactMessage::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-envelope';
+    protected static ?string $navigationGroup = 'Data Masuk';
+    protected static ?string $navigationLabel = 'Pesan Kontak';
+    protected static ?string $pluralModelLabel = 'Pesan Kontak';
+    protected static ?string $modelLabel = 'Pesan Kontak';
     public static function canCreate(): bool
     {
         return false;
@@ -128,6 +132,7 @@ class ContactMessageResource extends Resource
                     })
                     ->openUrlInNewTab(),
                 Tables\Actions\ViewAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

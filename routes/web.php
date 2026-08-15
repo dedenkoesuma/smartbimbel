@@ -20,3 +20,5 @@ Route::post('/kontak', [PageController::class, 'submitKontak'])->name('kontak.su
 Route::get('/login', function () {
     return redirect('/admin/login');
 })->name('login');
+//newsletter
+Route::post('/newsletter', [App\Http\Controllers\PageController::class, 'submitNewsletter'])->name('newsletter.submit');

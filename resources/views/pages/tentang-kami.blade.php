@@ -32,11 +32,19 @@
   .banner-copy h1{font-size:clamp(30px,3.6vw,42px);color:#fff;max-width:460px;margin-bottom:16px;}
   .banner-copy p.lead{color:rgba(255,255,255,.78);max-width:420px;font-size:16px;}
 
-  .banner-photo{
-    position:relative;
-    clip-path:polygon(14% 0, 100% 0, 100% 100%, 0% 100%);
+  .banner-photo {
+    position: relative;
+    clip-path: polygon(14% 0, 100% 0, 100% 100%, 0% 100%);
+    height: 100%; /* Memaksa kontainer mengikuti tinggi grid teks */
   }
-  .banner-photo img{width:100%;height:100%;object-fit:cover;}
+  .banner-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute; /* Trik agar gambar tidak memanjangkan baris */
+    top: 0;
+    left: 0;
+  }
   .banner-photo::after{
     content:'';position:absolute;inset:0;
     background:linear-gradient(15deg, rgba(20,27,77,.35), rgba(20,27,77,0) 55%);
@@ -191,50 +199,66 @@
   }
 </style>
 @endpush
-
 @section('content')
+
 <!-- ============ PAGE BANNER ============ -->
+@if($banner)
 <section class="banner">
   <div class="banner-inner">
     <div class="banner-copy reveal">
       <div class="banner-dots"></div>
       <div class="breadcrumb"><a href="{{ route('home') }}#home">Home</a><span>/</span><span class="current">Tentang Kami</span></div>
-      <h1>Mengenal Lebih Dekat Bimbel Smart</h1>
-      <p class="lead">Cerita, nilai, dan orang-orang di balik komitmen kami membimbing generasi muda meraih prestasi terbaiknya.</p>
+      <h1>{{ $banner->title }}</h1>
+      <p class="lead">{{ $banner->description }}</p>
     </div>
     <div class="banner-photo reveal">
-      <img src="https://images.pexels.com/photos/18395403/pexels-photo-18395403.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Suasana belajar di Bimbel Smart (foto stok)">
+      @if($banner->getFirstMediaUrl('about_banner'))
+        <img src="{{ $banner->getFirstMediaUrl('about_banner') }}" alt="{{ $banner->title }}">
+      @else
+        <img src="https://images.pexels.com/photos/18395403/pexels-photo-18395403.jpeg?auto=compress&cs=tinysrgb&w=1000" alt="Placeholder Banner">
+      @endif
       <div class="banner-stat">
-        <strong>15+</strong>
-        <span>Tahun Pengalaman</span>
+        <strong>{{ $banner->stat_number }}</strong>
+        <span>{{ $banner->stat_label }}</span>
       </div>
     </div>
   </div>
 </section>
+@endif
 
 <!-- ============ CERITA KAMI ============ -->
+@if($story)
 <section class="story">
   <div class="wrap">
     <div class="story-visual reveal">
       <div class="story-img a">
-        <img src="https://images.pexels.com/photos/6325982/pexels-photo-6325982.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tutor membimbing siswa secara personal (foto stok)">
+        @if($story->getFirstMediaUrl('about_story'))
+          <img src="{{ $story->getFirstMediaUrl('about_story') }}" alt="Cerita Kami">
+        @else
+          <img src="https://images.pexels.com/photos/6325982/pexels-photo-6325982.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Placeholder Story">
+        @endif
       </div>
       <div class="story-badge">
-        <strong>15+</strong>
-        <span>Tahun Membimbing Siswa</span>
+        <strong>{{ $story->badge_number }}</strong>
+        <span>{{ $story->badge_label }}</span>
       </div>
     </div>
     <div class="story-copy reveal">
-      <span class="eyebrow">Cerita Kami</span>
-      <h2>Bermula dari Bimbingan Kecil, Tumbuh Jadi Kepercayaan Banyak Keluarga</h2>
-      <p>Bimbel Smart lahir dari hal sederhana: keinginan untuk membantu anak-anak belajar tanpa rasa takut dan tekanan. Berawal dari beberapa kelas kecil di rumah, kami perlahan berkembang menjadi tempat belajar yang dipercaya ratusan keluarga di berbagai kota.</p>
-      <p>Seiring waktu, kami terus menyempurnakan metode belajar, merekrut tutor-tutor terbaik lulusan universitas ternama, dan membangun kurikulum yang relevan dengan kebutuhan siswa masa kini — mulai dari jenjang SD hingga persiapan UTBK di tingkat SMA.</p>
-      <p>Hari ini, Bimbel Smart hadir sebagai mitra belajar yang tidak hanya fokus pada nilai akademik, tapi juga pada tumbuhnya rasa percaya diri dan semangat belajar jangka panjang setiap anak.</p>
+      <span class="eyebrow">{{ $story->eyebrow }}</span>
+      <h2>{{ $story->title }}</h2>
+      
+      {{-- Karena menggunakan Rich Editor Filament, kita panggil pakai tag kurung kurawal tanda seru agar tag HTML terbaca --}}
+      <div style="color: var(--ink-soft); line-height: 1.75; display: grid; gap: 18px;">
+        {!! $story->description !!}
+      </div>
+      
     </div>
   </div>
 </section>
+@endif
 
 <!-- ============ VISI & MISI ============ -->
+@if($visiMisi)
 <section class="vm">
   <div class="wrap">
     <div class="section-head center reveal">
@@ -244,23 +268,35 @@
     </div>
     <div class="vm-grid reveal">
       <div class="vm-card visi">
-        <div class="vm-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.7"/></svg></div>
-        <h3>Visi Kami</h3>
-        <p>Menjadi lembaga bimbingan belajar terpercaya yang membentuk generasi muda Indonesia yang cerdas, mandiri, dan siap menghadapi masa depan dengan percaya diri.</p>
+        <div class="vm-icon">
+            <!-- Menampilkan SVG dinamis Icon Mata -->
+            {!! $visiMisi->visi_icon !!}
+        </div>
+        <h3>{{ $visiMisi->visi_title }}</h3>
+        <p>{{ $visiMisi->visi_description }}</p>
       </div>
       <div class="vm-card misi">
-        <div class="vm-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4M12 21a9 9 0 100-18 9 9 0 000 18z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>Misi Kami</h3>
+        <div class="vm-icon">
+            <!-- Menampilkan SVG dinamis Icon Target -->
+            {!! $visiMisi->misi_icon !!}
+        </div>
+        <h3>{{ $visiMisi->misi_title }}</h3>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Menyediakan kurikulum belajar yang relevan dan terus diperbarui.</li>
-          <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Menghadirkan tutor berpengalaman yang peduli pada tiap siswa.</li>
-          <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Membangun lingkungan belajar yang nyaman, suportif, dan fleksibel.</li>
-          <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Mendampingi orang tua memantau perkembangan belajar anak secara transparan.</li>
+          @if($visiMisi->misi_points)
+            @foreach($visiMisi->misi_points as $misi)
+              <li>
+                <!-- Menampilkan SVG dinamis Icon Ceklis -->
+                {!! $visiMisi->check_icon !!}
+                {{ $misi['point'] ?? '' }}
+              </li>
+            @endforeach
+          @endif
         </ul>
       </div>
     </div>
   </div>
 </section>
+@endif
 
 <!-- ============ NILAI-NILAI KAMI ============ -->
 <section class="values">
@@ -271,26 +307,18 @@
       <p>Empat nilai ini menjadi fondasi dalam setiap interaksi kami dengan siswa dan orang tua.</p>
     </div>
     <div class="values-grid reveal">
-      <div class="value-card">
-        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.9L22 9.5l-5.3 4.8L18 22l-6-3.6L6 22l1.3-7.7L2 9.5l7.1-.6L12 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-        <h4>Kualitas</h4>
-        <p>Standar pengajaran yang konsisten dan terus dievaluasi demi hasil belajar terbaik.</p>
-      </div>
-      <div class="value-card">
-        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.6l-1-1a5.5 5.5 0 10-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 000-7.8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-        <h4>Kepedulian</h4>
-        <p>Setiap siswa punya cara belajar sendiri, dan kami hadir untuk memahaminya.</p>
-      </div>
-      <div class="value-card">
-        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4v6c0 5-3.4 8.9-8 10-4.6-1.1-8-5-8-10V6l8-4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-        <h4>Integritas</h4>
-        <p>Jujur dan transparan kepada orang tua soal proses maupun hasil belajar anak.</p>
-      </div>
-      <div class="value-card">
-        <div class="value-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18h6M10 22h4M12 2a6 6 0 00-4 10.5c.6.6 1 1.4 1 2.3V16h6v-1.2c0-.9.4-1.7 1-2.3A6 6 0 0012 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-        <h4>Inovasi</h4>
-        <p>Terbuka pada metode dan teknologi baru yang membuat belajar makin efektif.</p>
-      </div>
+      @forelse($values as $value)
+        <div class="value-card">
+          <div class="value-icon">
+            <!-- Icon SVG digenerate otomatis berdasarkan Judul -->
+            {!! $value->icon !!}
+          </div>
+          <h4>{{ $value->title }}</h4>
+          <p>{{ $value->description }}</p>
+        </div>
+      @empty
+        <p>Belum ada nilai yang ditambahkan.</p>
+      @endforelse
     </div>
   </div>
 </section>
@@ -299,25 +327,21 @@
 <section class="stats">
   <div class="wrap">
     <div class="stats-grid reveal">
-      <div class="stat-item">
-        <div class="stat-num"><span class="counter" data-target="15">0</span><span>+</span></div>
-        <div class="stat-label">Tahun Pengalaman</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num"><span class="counter" data-target="500">0</span><span>+</span></div>
-        <div class="stat-label">Siswa Aktif</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num"><span class="counter" data-target="50">0</span><span>+</span></div>
-        <div class="stat-label">Tutor Berpengalaman</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num"><span class="counter" data-target="12">0</span><span>+</span></div>
-        <div class="stat-label">Kota Terjangkau</div>
-      </div>
+      @foreach($stats as $stat)
+        <div class="stat-item">
+          <!-- Memisahkan angka (untuk animasi) dan huruf/simbol (seperti tanda +) -->
+          @php
+            $numberOnly = preg_replace('/[^0-9]/', '', $stat->value);
+            $symbolOnly = preg_replace('/[0-9]/', '', $stat->value);
+          @endphp
+          <div class="stat-num"><span class="counter" data-target="{{ $numberOnly }}">0</span><span>{{ $symbolOnly }}</span></div>
+          <div class="stat-label">{{ $stat->label }}</div>
+        </div>
+      @endforeach
     </div>
   </div>
 </section>
+
 <!-- ============ TIM KAMI ============ -->
 <section class="team">
   <div class="wrap">
@@ -354,33 +378,25 @@
     <div class="section-head center reveal">
       <span class="eyebrow">Kata Mereka</span>
       <h2>Apa Kata Orang Tua &amp; Siswa Kami</h2>
-      <p>Cerita nyata dari keluarga yang sudah belajar bersama Bimbel Smart. (Data dummy — siap diganti dengan testimoni asli)</p>
+      <p>Cerita nyata dari keluarga yang sudah belajar bersama Bimbel Smart.</p>
     </div>
     <div class="testi-grid reveal">
-      <div class="testi-card">
-        <svg class="testi-quote-icon" viewBox="0 0 24 24" fill="none"><path d="M7 7a4 4 0 00-4 4v6h6v-6H6a2 2 0 012-2V7zM17 7a4 4 0 00-4 4v6h6v-6h-3a2 2 0 012-2V7z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-        <p class="msg">"Sejak ikut Bimbel Smart, anak saya jadi lebih semangat belajar matematika. Tutornya sabar dan komunikatif ke orang tua."</p>
-        <div class="testi-person">
-          <img src="https://ui-avatars.com/api/?name=Siti+Aminah&background=2C3E9E&color=fff&bold=true&size=92" alt="Foto placeholder Ibu Siti Aminah">
-          <div><strong>Ibu Siti Aminah</strong><span>Orang Tua Siswa SD</span></div>
+      @forelse($testimonials as $testi)
+        <div class="testi-card">
+          <svg class="testi-quote-icon" viewBox="0 0 24 24" fill="none"><path d="M7 7a4 4 0 00-4 4v6h6v-6H6a2 2 0 012-2V7zM17 7a4 4 0 00-4 4v6h6v-6h-3a2 2 0 012-2V7z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+          <p class="msg">"{{ $testi->message }}"</p>
+          <div class="testi-person">
+            @if($testi->getFirstMediaUrl('testi_avatars'))
+              <img src="{{ $testi->getFirstMediaUrl('testi_avatars') }}" alt="{{ $testi->name }}">
+            @else
+              <img src="https://ui-avatars.com/api/?name={{ urlencode($testi->name) }}&background=2C3E9E&color=fff&bold=true&size=92" alt="Foto placeholder {{ $testi->name }}">
+            @endif
+            <div><strong>{{ $testi->name }}</strong><span>{{ $testi->role }}</span></div>
+          </div>
         </div>
-      </div>
-      <div class="testi-card">
-        <svg class="testi-quote-icon" viewBox="0 0 24 24" fill="none"><path d="M7 7a4 4 0 00-4 4v6h6v-6H6a2 2 0 012-2V7zM17 7a4 4 0 00-4 4v6h6v-6h-3a2 2 0 012-2V7z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-        <p class="msg">"Jadwal les yang fleksibel sangat membantu karena anak saya juga aktif ekskul. Laporan perkembangannya jelas tiap bulan."</p>
-        <div class="testi-person">
-          <img src="https://ui-avatars.com/api/?name=Andre+Wijaya&background=2C3E9E&color=fff&bold=true&size=92" alt="Foto placeholder Bapak Andre Wijaya">
-          <div><strong>Bapak Andre Wijaya</strong><span>Orang Tua Siswa SMP</span></div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <svg class="testi-quote-icon" viewBox="0 0 24 24" fill="none"><path d="M7 7a4 4 0 00-4 4v6h6v-6H6a2 2 0 012-2V7zM17 7a4 4 0 00-4 4v6h6v-6h-3a2 2 0 012-2V7z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-        <p class="msg">"Persiapan UTBK di sini beda, latihan soalnya banyak dan pembahasannya gampang dimengerti. Terima kasih Bimbel Smart!"</p>
-        <div class="testi-person">
-          <img src="https://ui-avatars.com/api/?name=Kirana+Ayu&background=2C3E9E&color=fff&bold=true&size=92" alt="Foto placeholder Kirana Ayu">
-          <div><strong>Kirana Ayu</strong><span>Siswa SMA</span></div>
-        </div>
-      </div>
+      @empty
+        <p>Belum ada testimoni.</p>
+      @endforelse
     </div>
   </div>
 </section>
@@ -400,7 +416,6 @@
 </section>
 
 @endsection
-
 @push('scripts')
 <script>
 // Counter animation for stats

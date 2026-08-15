@@ -24,7 +24,14 @@
   .banner-copy h1{font-size:clamp(30px,3.6vw,42px);color:#fff;max-width:460px;margin-bottom:16px;}
   .banner-copy p.lead{color:rgba(255,255,255,.78);max-width:420px;font-size:16px;margin-bottom:0;}
   .banner-photo{position:relative;clip-path:polygon(14% 0, 100% 0, 100% 100%, 0% 100%);}
-  .banner-photo img{width:100%;height:100%;object-fit:cover;}
+  .banner-photo img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
   .banner-photo::after{
     content:'';position:absolute;inset:0;
     background:linear-gradient(15deg, rgba(20,27,77,.35), rgba(20,27,77,0) 55%);
@@ -135,25 +142,33 @@
 @endpush
 
 @section('content')
-
 <!-- ============ PAGE BANNER ============ -->
+@if($banner)
 <section class="banner">
   <div class="banner-inner">
     <div class="banner-copy reveal">
       <span class="banner-dots"></span>
       <div class="breadcrumb"><a href="{{ url('/') }}#home">Home</a><span>/</span><span class="current">Kontak</span></div>
-      <h1>Ada Pertanyaan? Yuk, Ngobrol Dulu.</h1>
-      <p class="lead">Tim Bimbel Smart siap bantu cariin program yang paling pas buat kamu atau si kecil. Chat, telepon, atau isi formulir — kami balas cepat.</p>
+      <h1>{{ $banner->title }}</h1>
+      <p class="lead">{{ $banner->description }}</p>
     </div>
     <div class="banner-photo reveal">
-      <img src="https://images.pexels.com/photos/7092613/pexels-photo-7092613.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Staf customer service Bimbel Smart (foto stok)">
+      @if($banner->getFirstMediaUrl('contact_banner'))
+        <img src="{{ $banner->getFirstMediaUrl('contact_banner') }}" alt="{{ $banner->title }}">
+      @else
+        <img src="https://images.pexels.com/photos/7092613/pexels-photo-7092613.jpeg" alt="Staf customer service">
+      @endif
+      
+      @if($banner->stat_value || $banner->stat_label)
       <div class="banner-stat">
-        <strong>&lt; 1 jam</strong>
-        <span>Rata-rata respons</span>
+        <strong>{{ $banner->stat_value }}</strong>
+        <span>{{ $banner->stat_label }}</span>
       </div>
+      @endif
     </div>
   </div>
 </section>
+@endif
 
 <!-- ============ CONTACT INFO + FORM ============ -->
 <section class="contact" id="form-kontak">
@@ -215,9 +230,9 @@
             <select id="program_interest" name="program_interest">
               <option value="">Pilih program (opsional)</option>
               
-              <!-- Looping data program secara dinamis -->
+              <!-- Looping data Program dari Halaman Beranda -->
               @foreach($programs as $program)
-                <option value="{{ $program->title }}">{{ $program->title }}</option>
+                <option value="{{ $program->name ?? $program->title }}">{{ $program->name ?? $program->title }}</option>
               @endforeach
               
               <option value="Lainnya">Lainnya</option>
@@ -246,17 +261,14 @@
       </div>
       <div class="hours-card">
         <h3><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Jam Operasional</h3>
-        <div class="hours-list">
-          <div class="hours-row"><span>Operasional Kantor</span><span>08.00 - 17.30</span></div>
-          <div class="hours-row"><span>Operasional Admin</span><span>08.00 - 20.00</span></div>
-          <div class="hours-row off"><span>Minggu</span><span>Tutup</span></div>
-          <div class="hours-row"><span>Hari Libur Nasional</span><span>Tutup</span></div>
-        </div>
+          <div class="hours-list">
+            <div class="hours-row"><span>Operasional Admin (Setiap Hari)</span><span>09.00 - 21.00</span></div>
+            <div class="hours-row"><span>Operasional Kantor (Senin - Jumat)</span><span>08.00 - 17.30</span></div>
+          </div>
       </div>
     </div>
   </div>
 </section>
-
 <!-- ============ FAQ ============ -->
 <section class="faq">
   <div class="wrap">
@@ -266,26 +278,24 @@
       <p>Mungkin jawabannya sudah ada di sini.</p>
     </div>
     <div class="faq-list reveal">
+      
+      @forelse($faqs as $faq)
       <div class="faq-item">
-        <button class="faq-q"><span>Bagaimana cara mendaftar program di Bimbel Smart?</span><span class="plus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></button>
-        <div class="faq-a"><p>Kamu bisa mengisi formulir kontak di halaman ini, menghubungi kami via WhatsApp, atau datang langsung ke kantor untuk konsultasi gratis dan penempatan kelas.</p></div>
+        <button class="faq-q">
+          <span>{{ $faq->question }}</span>
+          <span class="plus">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+        </button>
+        <div class="faq-a"><p>{{ $faq->answer }}</p></div>
       </div>
-      <div class="faq-item">
-        <button class="faq-q"><span>Apakah tersedia kelas trial sebelum mendaftar?</span><span class="plus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></button>
-        <div class="faq-a"><p>Ya, kami menyediakan satu sesi kelas percobaan gratis agar kamu bisa merasakan metode belajar kami sebelum memutuskan untuk bergabung.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q"><span>Berapa lama tim merespons pesan yang dikirim?</span><span class="plus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></button>
-        <div class="faq-a"><p>Tim kami biasanya merespons dalam waktu kurang dari 1 jam pada jam operasional, dan paling lambat di hari kerja berikutnya di luar jam tersebut.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q"><span>Apakah bisa konsultasi lewat telepon langsung?</span><span class="plus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></button>
-        <div class="faq-a"><p>Tentu. Hubungi nomor telepon/WhatsApp kami di jam operasional, tim kami siap membantu konsultasi program secara langsung.</p></div>
-      </div>
+      @empty
+        <p style="text-align: center; color: var(--ink-soft);">Belum ada pertanyaan FAQ yang ditambahkan.</p>
+      @endforelse
+
     </div>
   </div>
 </section>
-
 <!-- ============ CTA ============ -->
 <section class="cta">
   <div class="wrap">

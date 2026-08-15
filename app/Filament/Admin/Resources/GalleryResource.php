@@ -26,6 +26,10 @@ class GalleryResource extends Resource
     protected static ?string $model = Gallery::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-photo';
+    protected static ?string $navigationGroup = 'Halaman Galeri';
+    protected static ?string $navigationLabel = 'Galeri Foto';
+    protected static ?string $pluralModelLabel = 'Galeri Foto';
+    protected static ?string $modelLabel = 'Galeri Foto';
 
     public static function form(Form $form): Form
     {
@@ -96,6 +100,7 @@ class GalleryResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

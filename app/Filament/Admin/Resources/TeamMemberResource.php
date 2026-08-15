@@ -24,6 +24,7 @@ class TeamMemberResource extends Resource
     protected static ?string $model = TeamMember::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?string $navigationGroup = 'Halaman Tentang Kami';
 
   public static function form(Form $form): Form
     {
@@ -85,6 +86,7 @@ class TeamMemberResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -20,7 +20,7 @@
     </div>
     
     <div class="nav-cta">
-      <a href="{{ route('kontak') }}" class="btn btn-primary" style="padding:12px 24px;font-size:14px;">Daftar Sekarang</a>
+      <a href="{{ route('kontak') }}#form-kontak" class="btn btn-primary" style="padding:12px 24px;font-size:14px;">Daftar Sekarang</a>
       <button class="burger" id="burgerBtn" aria-label="Buka menu">
         <span></span><span></span><span></span>
       </button>
@@ -46,5 +46,5 @@
   <a href="{{ route('galeri') }}" class="mnav-link" data-nav="galeri">Galeri</a>
   <a href="{{ route('blog') }}" class="mnav-link" data-nav="blog">Blog</a>
   <a href="{{ route('kontak') }}" class="mnav-link" data-nav="kontak">Kontak</a>
-  <a href="{{ route('kontak') }}" class="btn btn-primary btn-block">Daftar Sekarang</a>
+  <a href="{{ route('kontak') }}#form-kontak" class="btn btn-primary btn-block">Daftar Sekarang</a>
 </div>

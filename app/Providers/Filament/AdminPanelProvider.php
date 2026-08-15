@@ -54,6 +54,18 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                \App\Filament\Admin\Widgets\DashboardStats::class,
             ])
+            ->navigationGroups([
+                'Promo',
+                'Data Masuk',
+                'Halaman Beranda',
+                'Halaman Tentang Kami',
+                'Halaman Layanan',
+                'Halaman Galeri',
+                'Halaman Blog',
+                'Halaman Kontak',
+                'Pengaturan Tampilan',
+                'Pengaturan Akun',
+            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

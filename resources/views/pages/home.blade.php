@@ -245,64 +245,95 @@
 
 @section('content')
 <!-- ============ HERO ============ -->
+@if($hero)
 <section class="hero" id="home">
   <div class="wrap">
     <div class="hero-copy reveal">
-      <span class="eyebrow">Bimbel Pilihan No. 1</span>
-      <h1>Belajar Lebih
-        <span class="hl gold">Seru
-          <svg viewBox="0 0 120 20" preserveAspectRatio="none"><path d="M2 14C20 6 45 4 60 8C80 13 100 6 118 10L118 18C90 20 60 20 30 18C18 17 8 16 2 18Z"/></svg>
-        </span>
-        &amp; Masa Depan Lebih
-        <span class="hl gold">Cemerlang
-          <svg viewBox="0 0 220 20" preserveAspectRatio="none"><path d="M2 14C40 6 90 4 120 8C160 13 200 6 218 10L218 18C170 20 110 20 60 18C34 17 14 16 2 18Z"/></svg>
-        </span>
-      </h1>
-      <p class="lead">Temukan metode belajar yang interaktif dan tutor berpengalaman yang siap membimbing anak Anda meraih prestasi impian, tanpa tekanan dan tanpa drama.</p>
+      <span class="eyebrow">{{ $hero->eyebrow }}</span>
+      
+      @php
+          // Trik pintar: Mencari teks yang diapit tanda bintang (*) dan mengubahnya jadi stabilo kuning
+          $titleText = $hero->title;
+          $svgCount = 0;
+          $formattedTitle = preg_replace_callback('/\*(.*?)\*/', function($matches) use (&$svgCount) {
+              $svgCount++;
+              // Menggunakan SVG pendek untuk kata pertama, SVG panjang untuk kata kedua
+              $svg = $svgCount % 2 != 0 
+                  ? '<svg viewBox="0 0 120 20" preserveAspectRatio="none"><path d="M2 14C20 6 45 4 60 8C80 13 100 6 118 10L118 18C90 20 60 20 30 18C18 17 8 16 2 18Z"/></svg>'
+                  : '<svg viewBox="0 0 220 20" preserveAspectRatio="none"><path d="M2 14C40 6 90 4 120 8C160 13 200 6 218 10L218 18C170 20 110 20 60 18C34 17 14 16 2 18Z"/></svg>';
+              
+              return '<span class="hl gold">' . $matches[1] . $svg . '</span>';
+          }, $titleText);
+      @endphp
+      
+      <!-- Menampilkan judul yang sudah diformat secara dinamis -->
+      <h1>{!! $formattedTitle !!}</h1>
+
+      <p class="lead">{{ $hero->description }}</p>
+      
       <div class="hero-actions">
         <a href="#kontak" class="btn btn-primary">Mulai Belajar</a>
         <a href="#program" class="btn btn-outline">Lihat Program</a>
       </div>
+      
+      <!-- DATA STATISTIK DINAMIS -->
       <div class="hero-stats">
-        <div><strong>15+</strong><span>Tahun Pengalaman</span></div>
-        <div><strong>500+</strong><span>Siswa Aktif</span></div>
-        <div><strong>50+</strong><span>Tutor Berpengalaman</span></div>
+        @foreach($stats as $stat)
+          <div><strong>{{ $stat->value }}</strong><span>{{ $stat->label }}</span></div>
+        @endforeach
       </div>
     </div>
+    
     <div class="hero-visual reveal">
       <div class="hero-blob"></div>
-      <img class="hero-photo" src="https://images.pexels.com/photos/18931270/pexels-photo-18931270.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Siswa dan pengajar dalam sesi belajar (foto stok)">
+      @if($hero->getFirstMediaUrl('hero_images'))
+        <img class="hero-photo" src="{{ $hero->getFirstMediaUrl('hero_images') }}" alt="{{ $hero->title }}">
+      @endif
     </div>
   </div>
 </section>
+@endif
 
 <!-- ============ KENAPA PILIH BIMBEL SMART ============ -->
+@if($whyUs)
 <section class="why" id="kenapa">
   <div class="wrap">
     <div class="why-visual reveal">
       <div class="why-img a">
-        <img src="https://images.pexels.com/photos/18395403/pexels-photo-18395403.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Guru mendampingi siswa belajar (foto stok)">
+        @if($whyUs->getFirstMediaUrl('why_us_primary'))
+          <img src="{{ $whyUs->getFirstMediaUrl('why_us_primary') }}" alt="Why Us Primary">
+        @endif
       </div>
       <div class="why-img b">
-        <img src="https://images.pexels.com/photos/6325982/pexels-photo-6325982.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tutor mengajar satu siswa secara online (foto stok)">
+        @if($whyUs->getFirstMediaUrl('why_us_secondary'))
+          <img src="{{ $whyUs->getFirstMediaUrl('why_us_secondary') }}" alt="Why Us Secondary">
+        @endif
       </div>
     </div>
+    
     <div class="why-copy reveal">
-      <span class="eyebrow">Kenapa Bimbel Smart</span>
-      <h2>Kenapa Pilih <span class="hl gold blue-ink">Bimbel Smart<svg viewBox="0 0 260 20" preserveAspectRatio="none"><path d="M2 14C50 6 120 4 160 8C200 13 240 6 258 10L258 18C200 20 120 20 60 18C34 17 14 16 2 18Z"/></svg></span>?</h2>
-      <p>Kami percaya setiap anak punya potensi untuk berkembang. Dengan pendekatan belajar yang personal, kami membantu si kecil menemukan cara belajar yang paling nyaman dan efektif untuknya.</p>
+      <span class="eyebrow">{{ $whyUs->eyebrow }}</span>
+      <h2>{{ $whyUs->title }}</h2>
+      <p>{{ $whyUs->description }}</p>
+      
       <div class="why-list">
-        <div class="why-item"><span class="why-check"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Kurikulum terupdate &amp; relevan</p></div>
-        <div class="why-item"><span class="why-check"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Pengajar berpengalaman &amp; friendly</p></div>
-        <div class="why-item"><span class="why-check"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Tutor datang ke rumah</p></div>
-        <div class="why-item"><span class="why-check"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Laporan perkembangan berkala</p></div>
-        <div class="why-item"><span class="why-check"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><p>Jam belajar fleksibel</p></div>
+        @if($whyUs->points)
+          @foreach($whyUs->points as $point)
+            <div class="why-item">
+              <span class="why-check">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <p>{{ $point['point_text'] ?? '' }}</p>
+            </div>
+          @endforeach
+        @endif
       </div>
     </div>
   </div>
 </section>
+@endif
 
-<!-- ============ PROGRAM UNGGULAN (UPDATED) ============ -->
+<!-- ============ PROGRAM UNGGULAN ============ -->
 <section class="program" id="program">
   <div class="wrap">
     <div class="section-head center reveal">
@@ -312,91 +343,20 @@
     </div>
     
     <div class="program-grid reveal">
-      
-      <!-- 1. Preschool -->
-      <div class="program-card">
-        <div class="program-icon">
-          <svg viewBox="0 0 24 24" fill="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <!-- LOOPING PROGRAM DINAMIS -->
+      @forelse($programs as $program)
+        <div class="program-card">
+          <div class="program-icon">
+            <!-- Menampilkan SVG dinamis dari Model -->
+            {!! $program->icon !!}
+          </div>
+          <h3>{{ $program->name }}</h3>
+          <p>{{ $program->description }}</p>
+          <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px; margin-top: auto; align-self: flex-start;">Lihat Program</a>
         </div>
-        <h3>Preschool</h3>
-        <p>Pendidikan usia dini dengan pendekatan belajar sambil bermain untuk melatih kemampuan kognitif dan motorik anak secara menyenangkan.</p>
-        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px; margin-top: auto; align-self: flex-start;">Lihat Program</a>
-      </div>
-
-      <!-- 2. Program SD -->
-      <div class="program-card">
-        <div class="program-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19.5V6a2 2 0 012-2h9a2 2 0 012 2v13.5M4 19.5h13M4 19.5a1.5 1.5 0 001.5 1.5H17M15 5v14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>Program SD</h3>
-        <p>Fokus pada pembentukan konsep dasar dan pengembangan minat belajar sejak dini agar anak menyukai proses belajar.</p>
-        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px; margin-top: auto; align-self: flex-start;">Lihat Program</a>
-      </div>
-
-      <!-- 3. Program SMP -->
-      <div class="program-card">
-        <div class="program-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>Program SMP</h3>
-        <p>Pendampingan intensif untuk menguasai materi sekolah, bantu anak berprestasi, dan siap menuju SMA impian favorit.</p>
-        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px; margin-top: auto; align-self: flex-start;">Lihat Program</a>
-      </div>
-
-      <!-- 4. Program SMA -->
-      <div class="program-card">
-        <div class="program-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M22 10L12 5 2 10l10 5 10-5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>Program SMA</h3>
-        <p>Persiapan matang menghadapi ujian sekolah dan strategi ampuh tembus UTBK agar masuk Perguruan Tinggi Negeri incaran.</p>
-        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px; margin-top: auto; align-self: flex-start;">Lihat Program</a>
-      </div>
-
-      <!-- 5. Kelas Online Reguler -->
-      <div class="program-card">
-        <div class="program-icon">
-          <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" ry="2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><line x1="8" y1="21" x2="16" y2="21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="17" x2="12" y2="21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <h3>Kelas Online Reguler</h3>
-        <p>Bimbingan belajar mata pelajaran sekolah secara daring dengan jadwal fleksibel, diakses dari rumah dengan tutor interaktif.</p>
-        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px; margin-top: auto; align-self: flex-start;">Lihat Program</a>
-      </div>
-
-      <!-- 6. Kelas Online Bahasa -->
-      <div class="program-card">
-        <div class="program-icon">
-          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="12" cy="12" rx="4" ry="10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <h3>Kelas Online Bahasa</h3>
-        <p>Belajar bahasa asing dari mana saja. Menghadirkan suasana interaktif dan kolaboratif layaknya kelas offline, namun secara daring.</p>
-        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px; margin-top: auto; align-self: flex-start;">Lihat Program</a>
-      </div>
-
-      <!-- 7. Bahasa Inggris -->
-      <div class="program-card">
-        <div class="program-icon">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <h3>Bahasa Inggris</h3>
-        <p>Program pengembangan Speaking, Listening, Reading, Writing & Grammar untuk membangun kompetensi unggul di akademik maupun karier global.</p>
-        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px; margin-top: auto; align-self: flex-start;">Lihat Program</a>
-      </div>
-
-      <!-- 8. Bahasa Mandarin -->
-      <div class="program-card">
-        <div class="program-icon">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M5 8l6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <h3>Bahasa Mandarin</h3>
-        <p>Pembelajaran komprehensif untuk membangun kemampuan dan kepercayaan diri berkomunikasi dalam bahasa Mandarin di dunia pendidikan dan bisnis.</p>
-        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px; margin-top: auto; align-self: flex-start;">Lihat Program</a>
-      </div>
-
-      <!-- 9. TOEFL & IELTS -->
-      <div class="program-card">
-        <div class="program-icon">
-          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <h3>TOEFL & IELTS Prep</h3>
-        <p>Persiapan intensif sertifikasi internasional dengan strategi pengerjaan soal dan simulasi (Mock Test) untuk target studi ke luar negeri atau beasiswa.</p>
-        <a href="#kontak" class="btn btn-outline" style="padding:11px 22px;font-size:14px; margin-top: auto; align-self: flex-start;">Lihat Program</a>
-      </div>
-
+      @empty
+        <p style="color: #fff;">Belum ada program yang ditambahkan.</p>
+      @endforelse
     </div>
   </div>
 </section>

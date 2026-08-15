@@ -9,37 +9,76 @@ use App\Models\University;
 use App\Models\Gallery;
 use App\Models\ContactMessage;
 use App\Models\Post;
+use App\Models\HeroSection;
+use App\Models\WhyUsSection;
+use App\Models\Stat;
+use App\Models\AboutBanner;
+use App\Models\AboutStory;
+use App\Models\AboutVisiMisi;
+use App\Models\AboutValue;
+use App\Models\Testimonial;
+use App\Models\LayananBanner;
+use App\Models\LayananProgram;
+use App\Models\AdditionalService;
+use App\Models\JoinStep;
+use App\Models\Faq;
+use App\Models\ContactBanner;
+use App\Models\NewsletterSubscriber;
 
 class PageController extends Controller
 {
     public function tentangKami()
     {
+        // 1. Ambil data singleton (hanya 1 baris)
+        $banner = AboutBanner::first();
+        $story = AboutStory::first();
+        $visiMisi = AboutVisiMisi::first();
+        
+        // 2. Ambil data jamak (banyak baris)
+        $values = AboutValue::all();
+        $testimonials = Testimonial::all();
+        
+        // 3. Ambil data dari tabel yang sudah ada sebelumnya
         $teams = TeamMember::where('is_active', true)->orderBy('order')->get();
-        $universities = University::where('is_active', true)->orderBy('order')->get();
-        return view('pages.tentang-kami', compact('teams', 'universities'));
+        $stats = Stat::orderBy('id', 'asc')->take(4)->get(); // Ambil 4 stat untuk halaman ini
+
+        return view('pages.tentang-kami', compact(
+            'banner', 'story', 'visiMisi', 'values', 'testimonials', 'teams', 'stats'
+        ));
     }
 
     public function home()
     {
-        $programs = Program::orderBy('title', 'asc')->get();
+        // 1. Ambil data Hero & Stats (Dibatasi maksimal 3)
+        $hero = HeroSection::where('is_active', true)->first();
+        $stats = Stat::orderBy('id', 'asc')->take(3)->get(); // Tambahkan ->take(3) di sini
+
+        // 2. Ambil data Why Us (Kenapa Pilih Kami)
+        $whyUs = WhyUsSection::first();
+
+        // 3. Ambil data Program
+        $programs = Program::orderBy('order', 'asc')->get();
+        
         $universities = University::where('is_active', true)->orderBy('order')->get();
 
-        // FIX: sebelumnya variabel ini tidak pernah dikirim ke view,
-        // padahal home.blade.php sudah pakai @if($featuredPosts->count()) —
-        // tanpa ini halaman Home langsung error "Undefined variable".
         $featuredPosts = Post::where('is_active', true)
             ->where('is_featured', true)
             ->orderByDesc('published_at')
             ->take(3)
             ->get();
 
-        return view('pages.home', compact('programs', 'universities', 'featuredPosts'));
+        return view('pages.home', compact('hero', 'stats', 'whyUs', 'programs', 'universities', 'featuredPosts'));
     }
 
     public function layanan()
     {
-        $programs = Program::orderBy('title', 'asc')->get();
-        return view('pages.layanan', compact('programs'));
+        $banner = LayananBanner::first();
+        $programs = LayananProgram::all();
+        $additionals = AdditionalService::all();
+        $steps = JoinStep::orderBy('step_number', 'asc')->get();
+        $faqs = Faq::all();
+
+        return view('pages.layanan', compact('banner', 'programs', 'additionals', 'steps', 'faqs'));
     }
 
     public function galeri()
@@ -52,9 +91,11 @@ class PageController extends Controller
 
     public function kontak()
     {
-        // Halaman Kontak menampilkan dropdown "Program yang Diminati"
-        $programs = Program::orderBy('title', 'asc')->get();
-        return view('pages.kontak', compact('programs'));
+        $banner = ContactBanner::first(); // Panggil data banner kontak
+        $programs = Program::orderBy('order', 'asc')->get();
+        $faqs = Faq::all();
+
+        return view('pages.kontak', compact('banner', 'programs', 'faqs'));
     }
 
     public function blog()
@@ -67,7 +108,14 @@ class PageController extends Controller
             ->orderByDesc('published_at')
             ->get();
 
-        return view('pages.blog', compact('featured', 'posts'));
+        // Mengambil kategori unik dari database secara dinamis
+        $categories = Post::where('is_active', true)
+            ->pluck('category')
+            ->filter()
+            ->unique()
+            ->values();
+
+        return view('pages.blog', compact('featured', 'posts', 'categories'));
     }
 
     public function blogShow($slug)
@@ -107,5 +155,19 @@ class PageController extends Controller
         ContactMessage::create($validated);
 
         return redirect()->back()->with('success', 'Pesan kamu berhasil dikirim! Tim kami akan segera menghubungi.');
+    }
+    public function submitNewsletter(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|max:255|unique:newsletter_subscribers,email',
+        ], [
+            'email.unique' => 'Email ini sudah terdaftar di newsletter kami.',
+        ]);
+
+        NewsletterSubscriber::create([
+            'email' => $request->email,
+        ]);
+
+        return redirect()->back()->with('newsletter_success', 'Terima kasih telah berlangganan newsletter kami!');
     }
 }

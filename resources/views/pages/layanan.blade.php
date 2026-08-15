@@ -7,7 +7,7 @@
 <style>
 /* Token, reset, tombol, navbar & mobile-nav dasar sudah ada di assets/style.css */
 
-  /* ============ PAGE BANNER (khusus Layanan — kartu foto + shape aksen, beda dari Tentang Kami) ============ */
+  /* ============ PAGE BANNER ============ */
   .banner{padding:64px 0 80px;background:linear-gradient(180deg,#fff 0%,var(--blue-tint) 100%);overflow:hidden;}
   .banner-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center;}
   .banner-copy{position:relative;}
@@ -50,7 +50,7 @@
   }
   .banner-tag svg{width:15px;height:15px;color:#FFD877;}
 
-  /* ============ PROGRAM UTAMA (detail) ============ */
+  /* ============ PROGRAM UTAMA ============ */
   .programs{padding:100px 0;}
   .program-list{display:grid;gap:26px;}
   .program-detail{
@@ -99,7 +99,6 @@
   }
   .addon-icon svg{width:24px;height:24px;color:var(--blue);}
   .addon-card h4{font-size:17px;margin-bottom:6px;}
-  .addon-tagline{font-size:12.5px;font-weight:700;color:var(--blue);margin-bottom:10px;}
   .addon-card p{font-size:14px;color:var(--ink-soft);}
 
   /* ============ CARA KERJA ============ */
@@ -151,8 +150,6 @@
   .cta-card p{color:rgba(255,255,255,.8);max-width:520px;margin:0 auto 30px;position:relative;}
   .cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;}
 
-  /* Style footer & reveal dasar sudah ada di assets/style.css */
-
   /* ============ RESPONSIVE ============ */
   @media (max-width:980px){
     .nav-links{display:none;}
@@ -190,40 +187,52 @@
 @endpush
 
 @section('content')
+
 <!-- ============ PAGE BANNER ============ -->
+@if($banner)
 <section class="banner">
   <div class="wrap">
     <div class="banner-inner">
       <div class="banner-copy reveal">
         <div class="banner-dots"></div>
         <div class="breadcrumb"><a href="{{ route('home') }}#home">Home</a><span>/</span><span class="current">Layanan</span></div>
-        <span class="eyebrow">Layanan Kami</span>
-        <h1>Program Belajar untuk Setiap Jenjang Pendidikan</h1>
-        <p class="lead">Dari SD hingga persiapan UTBK, setiap program kami rancang agar sesuai kebutuhan, kemampuan, dan gaya belajar anak Anda.</p>
+        <span class="eyebrow">{{ $banner->eyebrow }}</span>
+        <h1>{{ $banner->title }}</h1>
+        <p class="lead">{{ $banner->description }}</p>
         <div class="banner-chips">
-          <span>Program SD</span>
-          <span>Program SMP</span>
-          <span>Program SMA</span>
-          <span>English Academy</span>
+          @foreach($programs as $prog)
+            @if($prog->badge)
+              <span>{{ $prog->badge }}</span>
+            @endif
+          @endforeach
         </div>
       </div>
       <div class="banner-visual reveal">
         <div class="banner-shape"></div>
         <div class="banner-photo">
-          <img src="https://images.pexels.com/photos/8926900/pexels-photo-8926900.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Tutor membantu siswa belajar (foto stok)">
+          @if($banner->getFirstMediaUrl('layanan_banner'))
+            <img src="{{ $banner->getFirstMediaUrl('layanan_banner') }}" alt="{{ $banner->title }}">
+          @else
+            <img src="https://images.pexels.com/photos/8926900/pexels-photo-8926900.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Banner Layanan">
+          @endif
         </div>
+        @if($banner->badge_1_text)
         <div class="banner-tag">
           <svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Tutor Tersertifikasi
+          {{ $banner->badge_1_text }}
         </div>
+        @endif
+        @if($banner->badge_2_number)
         <div class="banner-stat">
-          <strong>3</strong>
-          <span>Jenjang Program</span>
+          <strong>{{ $banner->badge_2_number }}</strong>
+          <span>{{ $banner->badge_2_text }}</span>
         </div>
+        @endif
       </div>
     </div>
   </div>
 </section>
+@endif
 
 <!-- ============ PROGRAM UTAMA ============ -->
 <section class="programs" id="program-utama">
@@ -234,145 +243,45 @@
       <p>Kurikulum disusun bertahap agar anak benar-benar memahami konsep, bukan sekadar menghafal.</p>
     </div>
     <div class="program-list">
-
+      @forelse($programs as $program)
       <div class="program-detail reveal">
         <div class="pd-media">
-          <img src="https://images.pexels.com/photos/5621944/pexels-photo-5621944.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Siswa SD belajar bersama tutor (foto stok)">
-          <span class="pd-badge">Program SD</span>
+          @if($program->getFirstMediaUrl('layanan_program'))
+            <img src="{{ $program->getFirstMediaUrl('layanan_program') }}" alt="{{ $program->title }}">
+          @else
+            <img src="https://images.pexels.com/photos/5621944/pexels-photo-5621944.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Placeholder Program">
+          @endif
+          @if($program->badge)
+            <span class="pd-badge">{{ $program->badge }}</span>
+          @endif
         </div>
         <div class="pd-body">
-          <div class="pd-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19.5V6a2 2 0 012-2h9a2 2 0 012 2v13.5M4 19.5h13M4 19.5a1.5 1.5 0 001.5 1.5H17M15 5v14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <h3>Program Sekolah Dasar</h3>
-          <p class="pd-tagline">Untuk kelas 1–6 SD</p>
-          <p class="desc">Fokus membangun fondasi berhitung, membaca, dan menulis lewat metode belajar sambil bermain, supaya anak tetap senang tanpa merasa terbebani.</p>
+          <div class="pd-icon">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 19.5V6a2 2 0 012-2h9a2 2 0 012 2v13.5M4 19.5h13M4 19.5a1.5 1.5 0 001.5 1.5H17M15 5v14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>{{ $program->title }}</h3>
+          @if($program->subtitle)
+            <p class="pd-tagline">{{ $program->subtitle }}</p>
+          @endif
+          <p class="desc">{{ $program->description }}</p>
+          
+          @if($program->checklists)
           <ul class="pd-features">
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Matematika &amp; calistung dasar</li>
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Metode belajar sambil bermain</li>
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Kelas kecil, maksimal 5 siswa</li>
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Laporan perkembangan mingguan</li>
+            @foreach($program->checklists as $item)
+              <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>{{ $item['point'] ?? '' }}</li>
+            @endforeach
           </ul>
+          @endif
+
           <div class="pd-footer">
             <div class="pd-price"><strong>Konsultasi</strong><span>hubungi kami untuk info biaya</span></div>
             <a href="{{ route('kontak') }}#form-kontak" class="btn btn-outline btn-sm">Konsultasi Program Ini</a>
           </div>
         </div>
       </div>
-
-      <div class="program-detail reveal">
-        <div class="pd-media">
-          <img src="https://images.pexels.com/photos/6325982/pexels-photo-6325982.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Program SMP Bimbel Smart (foto stok)">
-          <span class="pd-badge">Program SMP</span>
-        </div>
-        <div class="pd-body">
-          <div class="pd-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <h3>Program Sekolah Menengah Pertama</h3>
-          <p class="pd-tagline">Untuk kelas 7–9 SMP</p>
-          <p class="desc">Pendampingan intensif untuk menguasai Matematika, IPA, dan Bahasa Inggris, sekaligus mempersiapkan siswa menuju SMA/SMK favorit.</p>
-          <ul class="pd-features">
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Matematika, IPA &amp; Bahasa Inggris</li>
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Persiapan ujian sekolah</li>
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Latihan soal rutin</li>
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Konsultasi pemilihan SMA</li>
-          </ul>
-          <div class="pd-footer">
-            <div class="pd-price"><strong>Konsultasi</strong><span>hubungi kami untuk info biaya</span></div>
-            <a href="{{ route('kontak') }}#form-kontak" class="btn btn-outline btn-sm">Konsultasi Program Ini</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="program-detail reveal">
-        <div class="pd-media">
-          <img src="https://images.pexels.com/photos/6684209/pexels-photo-6684209.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Program SMA Bimbel Smart (foto stok)">
-          <span class="pd-badge">Program SMA</span>
-        </div>
-        <div class="pd-body">
-          <div class="pd-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M22 10L12 5 2 10l10 5 10-5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <h3>Program Sekolah Menengah Atas</h3>
-          <p class="pd-tagline">Untuk kelas 10–12 SMA</p>
-          <p class="desc">Persiapan matang menghadapi ujian sekolah, UTBK, dan SBMPTN dengan strategi belajar terarah serta try out berkala untuk mengukur kesiapan.</p>
-          <ul class="pd-features">
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Persiapan UTBK &amp; SBMPTN</li>
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Matematika, Fisika, Kimia lanjutan</li>
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Try out rutin dengan pembahasan</li>
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Konsultasi pemilihan jurusan</li>
-          </ul>
-          <div class="pd-footer">
-            <div class="pd-price"><strong>Konsultasi</strong><span>hubungi kami untuk info biaya</span></div>
-            <a href="{{ route('kontak') }}#form-kontak" class="btn btn-outline btn-sm">Konsultasi Program Ini</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="program-detail reveal">
-        <div class="pd-media">
-          <img src="https://images.pexels.com/photos/6684209/pexels-photo-6684209.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Persiapan TOEFL dan IELTS (foto stok)">
-          <span class="pd-badge">TOEFL &amp; IELTS</span>
-        </div>
-        <div class="pd-body">
-          <div class="pd-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.9L22 9.5l-5.3 4.8L18 22l-6-3.6L6 22l1.3-7.7L2 9.5l7.1-.6L12 2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
-          <h3>TOEFL &amp; IELTS Preparation</h3>
-          <p class="pd-tagline">Persiapan Sertifikasi Bahasa Inggris Internasional</p>
-          <p class="desc">Program persiapan TOEFL dan IELTS dengan pembelajaran strategi pengerjaan soal, latihan intensif, serta simulasi tes (Mock Test) untuk membantu peserta mencapai target skor yang dibutuhkan untuk kuliah, beasiswa, karier, maupun studi ke luar negeri.</p>
-          <ul class="pd-features">
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Strategi pengerjaan soal</li>
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Latihan intensif</li>
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Simulasi tes (Mock Test)</li>
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Target skor sesuai kebutuhan</li>
-          </ul>
-          <div class="pd-footer">
-            <div class="pd-price"><strong>Konsultasi</strong><span>hubungi kami untuk info biaya</span></div>
-            <a href="{{ route('kontak') }}#form-kontak" class="btn btn-outline btn-sm">Konsultasi Program Ini</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="program-detail reveal">
-        <div class="pd-media">
-          <img src="https://images.pexels.com/photos/29242202/pexels-photo-29242202.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Kelas Bahasa Inggris (foto stok)">
-          <span class="pd-badge">Bahasa Inggris</span>
-        </div>
-        <div class="pd-body">
-          <div class="pd-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h11v11H4z" stroke="currentColor" stroke-width="1.8"/><path d="M9 5V2m0 3.5C6 6 4 8.5 4 11.5M15 5c3 1 5 3.5 5 6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-          <h3>Bahasa Inggris</h3>
-          <p class="pd-tagline">Speaking, Listening, Reading, Writing &amp; Grammar</p>
-          <p class="desc">Program Bahasa Inggris untuk siswa dan umum yang berfokus pada pengembangan Speaking, Listening, Reading, Writing, Grammar, dan Vocabulary, guna membangun kompetensi berbahasa yang unggul untuk kebutuhan akademik, karier, dan komunikasi internasional.</p>
-          <ul class="pd-features">
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Speaking &amp; Listening</li>
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Reading &amp; Writing</li>
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Grammar &amp; Vocabulary</li>
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Untuk siswa &amp; umum</li>
-          </ul>
-          <div class="pd-footer">
-            <div class="pd-price"><strong>Konsultasi</strong><span>hubungi kami untuk info biaya</span></div>
-            <a href="{{ route('kontak') }}#form-kontak" class="btn btn-outline btn-sm">Konsultasi Program Ini</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="program-detail reveal">
-        <div class="pd-media">
-          <img src="https://images.pexels.com/photos/5992912/pexels-photo-5992912.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Kelas Bahasa Mandarin (foto stok)">
-          <span class="pd-badge">Bahasa Mandarin</span>
-        </div>
-        <div class="pd-body">
-          <div class="pd-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.4 8.4 0 01-8.5 8.5 8.6 8.6 0 01-4-1L3 20l1-5.5a8.4 8.4 0 01-1-4A8.4 8.4 0 0111.5 2 8.6 8.6 0 0121 11.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
-          <h3>Bahasa Mandarin</h3>
-          <p class="pd-tagline">Listening, Speaking, Reading &amp; Writing</p>
-          <p class="desc">Program Bahasa Mandarin untuk siswa dan umum, dengan pembelajaran listening, speaking, reading, dan writing yang dirancang untuk membangun kemampuan komunikasi secara percaya diri untuk kebutuhan pendidikan, karier, bisnis, dan komunikasi global.</p>
-          <ul class="pd-features">
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Listening &amp; Speaking</li>
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Reading &amp; Writing</li>
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Untuk siswa &amp; umum</li>
-            <li><svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Percaya diri berkomunikasi</li>
-          </ul>
-          <div class="pd-footer">
-            <div class="pd-price"><strong>Konsultasi</strong><span>hubungi kami untuk info biaya</span></div>
-            <a href="{{ route('kontak') }}#form-kontak" class="btn btn-outline btn-sm">Konsultasi Program Ini</a>
-          </div>
-        </div>
-      </div>
-
+      @empty
+        <p>Belum ada program utama yang ditambahkan.</p>
+      @endforelse
     </div>
   </div>
 </section>
@@ -386,44 +295,17 @@
       <p>Selain program utama, kami juga menyediakan layanan pendukung sesuai kebutuhan spesifik siswa.</p>
     </div>
     <div class="addons-grid reveal">
-      <div class="addon-card">
-        <div class="addon-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.7"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
-        <h4>Kelas Privat 1-on-1</h4>
-        <p>Bimbingan personal dengan perhatian penuh dari tutor, jadwal menyesuaikan kebutuhan siswa.</p>
-      </div>
-      <div class="addon-card">
-        <div class="addon-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="8" cy="9" r="3" stroke="currentColor" stroke-width="1.7"/><circle cx="17" cy="9" r="3" stroke="currentColor" stroke-width="1.7"/><path d="M2 20c0-3 2.7-5 6-5s6 2 6 5M11 20c0-3 2.7-5 6-5s6 2 6 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
-        <h4>Kelompok Kecil</h4>
-        <p>Belajar bersama 3–5 teman sebaya, tetap fokus namun lebih hemat dan seru.</p>
-      </div>
-      <div class="addon-card">
-        <div class="addon-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.9L22 9.5l-5.3 4.8L18 22l-6-3.6L6 22l1.3-7.7L2 9.5l7.1-.6L12 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-        <h4>Persiapan Olimpiade</h4>
-        <p>Pendalaman materi dan latihan soal untuk siswa yang ingin bersaing di ajang olimpiade sains.</p>
-      </div>
-      <div class="addon-card">
-        <div class="addon-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.4 8.4 0 01-8.5 8.5 8.6 8.6 0 01-4-1L3 20l1-5.5a8.4 8.4 0 01-1-4A8.4 8.4 0 0111.5 2 8.6 8.6 0 0121 11.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-        <h4>Konsultasi Akademik</h4>
-        <p>Sesi konsultasi gratis untuk membantu orang tua menentukan program yang paling sesuai.</p>
-      </div>
-      <div class="addon-card">
-        <div class="addon-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4M12 21a9 9 0 100-18 9 9 0 000 18z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h4>Try Out Berkala</h4>
-        <p>Simulasi ujian rutin lengkap dengan analisis hasil, untuk memantau kesiapan siswa secara berkala.</p>
-      </div>
-      
-      <!-- ADDON BARU (KE-6) -->
+      @forelse($additionals as $addon)
       <div class="addon-card">
         <div class="addon-icon">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          {!! $addon->icon !!}
         </div>
-        <h4>Modul Belajar Eksklusif</h4>
-        <p>Akses ke ringkasan materi dan bank soal terupdate yang disusun khusus oleh tim pengajar ahli.</p>
+        <h4>{{ $addon->title }}</h4>
+        <p>{{ $addon->description }}</p>
       </div>
-
+      @empty
+        <p>Belum ada layanan tambahan.</p>
+      @endforelse
     </div>
   </div>
 </section>
@@ -437,26 +319,15 @@
       <p>Proses pendaftaran yang simpel, tanpa ribet.</p>
     </div>
     <div class="steps-grid reveal">
+      @forelse($steps as $step)
       <div class="step-item">
-        <div class="step-num">1</div>
-        <h4>Konsultasi Gratis</h4>
-        <p>Ceritakan kebutuhan belajar anak Anda ke tim kami, tanpa biaya.</p>
+        <div class="step-num">{{ $step->step_number }}</div>
+        <h4>{{ $step->title }}</h4>
+        <p>{{ $step->description }}</p>
       </div>
-      <div class="step-item">
-        <div class="step-num">2</div>
-        <h4>Tes Penempatan</h4>
-        <p>Kami cek kemampuan awal siswa untuk menentukan level belajar yang pas.</p>
-      </div>
-      <div class="step-item">
-        <div class="step-num">3</div>
-        <h4>Mulai Belajar</h4>
-        <p>Siswa mulai kelas sesuai jadwal dan program yang sudah disepakati.</p>
-      </div>
-      <div class="step-item">
-        <div class="step-num">4</div>
-        <h4>Laporan Berkala</h4>
-        <p>Orang tua menerima laporan perkembangan belajar secara rutin.</p>
-      </div>
+      @empty
+        <p>Belum ada data langkah bergabung.</p>
+      @endforelse
     </div>
   </div>
 </section>
@@ -470,26 +341,14 @@
       <p>Masih ragu? Mudah-mudahan jawabannya ada di sini.</p>
     </div>
     <div class="faq-list reveal">
+      @forelse($faqs as $faq)
       <div class="faq-item">
-        <button class="faq-q">Apakah bisa konsultasi dulu sebelum mendaftar?<span class="plus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span></button>
-        <div class="faq-a"><p>Bisa banget. Kami menyediakan sesi konsultasi gratis untuk membantu menentukan program dan jadwal yang paling sesuai dengan kebutuhan anak Anda.</p></div>
+        <button class="faq-q">{{ $faq->question }}<span class="plus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span></button>
+        <div class="faq-a"><p>{{ $faq->answer }}</p></div>
       </div>
-      <div class="faq-item">
-        <button class="faq-q">Apakah tutor datang ke rumah atau belajar online?<span class="plus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span></button>
-        <div class="faq-a"><p>Kami menyediakan dua pilihan: tutor datang langsung ke rumah, atau kelas online interaktif — silakan sesuaikan dengan kenyamanan keluarga Anda.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Berapa lama durasi satu sesi belajar?<span class="plus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span></button>
-        <div class="faq-a"><p>Umumnya satu sesi berlangsung 90–120 menit, disesuaikan dengan jenjang dan kebutuhan materi masing-masing siswa.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Bagaimana jika ingin mengubah jadwal belajar?<span class="plus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span></button>
-        <div class="faq-a"><p>Tidak masalah, jadwal bisa disesuaikan kembali dengan menghubungi admin minimal 1 hari sebelumnya.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Apakah ada laporan perkembangan untuk orang tua?<span class="plus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span></button>
-        <div class="faq-a"><p>Ada. Orang tua akan menerima laporan perkembangan belajar secara berkala, termasuk catatan dari tutor mengenai progres anak.</p></div>
-      </div>
+      @empty
+        <p>Belum ada pertanyaan FAQ.</p>
+      @endforelse
     </div>
   </div>
 </section>

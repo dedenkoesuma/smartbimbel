@@ -26,6 +26,10 @@ class PostResource extends Resource
     protected static ?string $model = Post::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
+    protected static ?string $navigationGroup = 'Halaman Blog';
+    protected static ?string $navigationLabel = 'Artikel Blog';
+    protected static ?string $pluralModelLabel = 'Artikel Blog';
+    protected static ?string $modelLabel = 'Artikel Blog';
 
     public static function form(Form $form): Form
     {
@@ -44,16 +48,11 @@ class PostResource extends Resource
                     ->unique(ignoreRecord: true)
                     ->maxLength(255),
 
-                Select::make('category')
+                TextInput::make('category')
                     ->label('Kategori')
-                    ->options([
-                        'tips'      => 'Tips Belajar',
-                        'info'      => 'Info Pendidikan',
-                        'sukses'    => 'Cerita Sukses',
-                        'english'   => 'English Corner',
-                        'parenting' => 'Parenting',
-                    ])
-                    ->required(),
+                    ->required()
+                    ->maxLength(255)
+                    ->placeholder('Contoh: Tips Belajar, Parenting, dll'),
 
                 Textarea::make('excerpt')
                     ->label('Ringkasan Singkat')
@@ -128,6 +127,7 @@ class PostResource extends Resource
             ->filters([])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

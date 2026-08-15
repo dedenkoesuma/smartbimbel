@@ -13,15 +13,9 @@ return new class extends Migration
     {
         Schema::create('programs', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('tagline')->nullable();
-            $table->text('description')->nullable();
-            $table->string('badge')->nullable();
-            $table->string('price_text')->default('Konsultasikan');
-            $table->json('features')->nullable();
-            $table->string('type')->default('utama');
+            $table->string('name'); // "Preschool", "Program SD", dll
+            $table->text('description'); 
             $table->integer('order')->default(0);
-            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

@@ -7,8 +7,7 @@
 <style>
 /* Token, reset, tombol, navbar & mobile-nav dasar sudah ada di assets/style.css */
 
-
-  /* ============ PAGE BANNER (khusus Blog — center + search, beda dari halaman lain) ============ */
+  /* ============ PAGE BANNER ============ */
   .banner{
     padding:76px 0 60px;text-align:center;position:relative;overflow:hidden;
     background:linear-gradient(180deg,var(--blue-tint) 0%, #fff 85%);
@@ -95,9 +94,6 @@
   .cta-form input:focus{outline:none;}
   .cta-form button{background:var(--gold);color:var(--blue-deep);font-weight:700;font-size:14px;padding:0 26px;}
 
-  /* Style footer & reveal dasar sudah ada di assets/style.css */
-
-
   /* ============ RESPONSIVE ============ */
   @media (max-width:980px){
     .nav-links{display:none;}
@@ -124,16 +120,6 @@
   }
 </style>
 @endpush
-
-@php
-  $categoryLabels = [
-    'tips' => 'Tips Belajar',
-    'info' => 'Info Pendidikan',
-    'sukses' => 'Cerita Sukses',
-    'english' => 'English Corner',
-    'parenting' => 'Parenting',
-  ];
-@endphp
 
 @section('content')
 <!-- ============ PAGE BANNER ============ -->
@@ -165,7 +151,7 @@
       </div>
       <div class="featured-body">
         <div class="featured-meta">
-          <span>{{ $categoryLabels[$featured->category] ?? $featured->category }}</span>
+          <span>{{ $featured->category }}</span>
           <span class="dot"></span>
           <span>{{ $featured->published_at?->translatedFormat('d M Y') }}</span>
           <span class="dot"></span>
@@ -191,10 +177,11 @@
       <h2>Jelajahi Artikel Lainnya</h2>
     </div>
 
+    {{-- Kategori Dinamis Berdasarkan Database --}}
     <div class="filter-row reveal">
       <button class="filter-pill active" data-filter="semua">Semua</button>
-      @foreach($categoryLabels as $key => $label)
-        <button class="filter-pill" data-filter="{{ $key }}">{{ $label }}</button>
+      @foreach($categories as $cat)
+        <button class="filter-pill" data-filter="{{ $cat }}">{{ $cat }}</button>
       @endforeach
     </div>
 
@@ -203,7 +190,7 @@
         <article class="blog-card" data-category="{{ $item->category }}" data-title="{{ Str::lower($item->title) }}">
           <a class="blog-thumb" href="{{ route('blog.show', $item->slug) }}">
             <img src="{{ $item->getFirstMediaUrl('post_images') }}" alt="{{ $item->title }}">
-            <span class="tag">{{ $categoryLabels[$item->category] ?? $item->category }}</span>
+            <span class="tag">{{ $item->category }}</span>
           </a>
           <div class="blog-body">
             <span class="blog-meta">{{ $item->published_at?->translatedFormat('d M Y') }} &middot; {{ $item->read_time }} min baca</span>
@@ -222,21 +209,20 @@
     <p class="empty-state" id="emptyState">Belum ada artikel yang cocok dengan pencarian atau kategori ini.</p>
   </div>
 </section>
-
 <!-- ============ NEWSLETTER CTA ============ -->
 <section class="cta">
   <div class="wrap">
     <div class="cta-card reveal">
       <h2>Nggak Mau Ketinggalan Artikel Baru?</h2>
       <p>Daftar newsletter kami dan dapatkan tips belajar terbaru langsung ke email kamu setiap minggu.</p>
-      <form class="cta-form" id="ctaNewsletterForm">
-        <input type="email" placeholder="Alamat email kamu" required>
+      <form action="{{ route('newsletter.submit') }}" method="POST" class="cta-form">
+        @csrf
+        <input type="email" name="email" placeholder="Alamat email kamu" required>
         <button type="submit">Berlangganan</button>
       </form>
     </div>
   </div>
 </section>
-
 @endsection
 
 @push('scripts')
@@ -273,7 +259,7 @@
   searchBtn.addEventListener('click', applyFilters);
   searchInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') applyFilters(); else applyFilters(); });
 
-  // Newsletter forms (demo only, no backend)
+  // Newsletter forms
   const ctaForm = document.getElementById('ctaNewsletterForm');
   ctaForm.addEventListener('submit', (e) => {
     e.preventDefault();
