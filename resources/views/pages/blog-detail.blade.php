@@ -11,6 +11,9 @@
 @endphp
 
 @section('title', $post->title.' — Bimbel Smart')
+<!-- ====== TAMBAHAN UNTUK SEO ====== -->
+@section('meta_description', Str::limit(strip_tags($post->excerpt), 150))
+@section('meta_image', $post->getFirstMediaUrl('post_images'))
 @section('page', 'blog')
 
 @push('styles')

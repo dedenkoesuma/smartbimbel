@@ -3,7 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>@yield('title', 'Bimbel Smart')</title>
+
+<!-- ====== SEO META TAGS ====== -->
+<title>@yield('title', 'Bimbel Smart | Bimbingan Belajar SD, SMP, SMA & UTBK')</title>
+<meta name="description" content="@yield('meta_description', 'Bimbel Smart menyediakan program belajar SD, SMP, SMA, dan persiapan UTBK dengan tutor berpengalaman dan metode belajar interaktif yang menyenangkan.')">
+<meta name="google-site-verification" content="g9YaForUvRQE3-SwpeKyeN0iO7zv6Cvkp8CUiEFpdeU" />
+<!-- Open Graph untuk Share di WhatsApp / Sosmed -->
+<meta property="og:title" content="@yield('title', 'Bimbel Smart | Bimbingan Belajar SD, SMP, SMA & UTBK')">
+<meta property="og:description" content="@yield('meta_description', 'Tingkatkan prestasi belajar bersama Bimbel Smart. Solusi belajar cerdas untuk masa depan cemerlang.')">
+<meta property="og:image" content="@yield('meta_image', asset('assets/logo.png'))">
+<meta property="og:type" content="website">
+<!-- ====== FAVICON & APP ICONS ====== -->
+<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/apple-touch-icon.png') }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/favicon-16x16.png') }}">
+<link rel="icon" type="image/png" sizes="192x192" href="{{ asset('assets/android-chrome-192x192.png') }}">
+<link rel="icon" type="image/png" sizes="512x512" href="{{ asset('assets/android-chrome-512x512.png') }}">
+<!-- ================================== -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
