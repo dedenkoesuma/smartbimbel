@@ -18,7 +18,7 @@ class ContactInfoResource extends Resource
     protected static ?string $navigationGroup = 'Halaman Kontak';
     protected static ?string $navigationLabel = 'Informasi Kontak';
     protected static ?string $modelLabel = 'Informasi Kontak';
-
+    protected static ?string $pluralModelLabel = 'Informasi Kontak';
     public static function form(Form $form): Form
     {
         return $form
