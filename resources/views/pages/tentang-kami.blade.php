@@ -7,7 +7,6 @@
 <style>
 /* Token, reset, tombol, navbar & mobile-nav dasar sudah ada di assets/style.css */
 
-
   /* ============ PAGE BANNER ============ */
   .banner{
     background:#fff;overflow:hidden;
@@ -259,9 +258,31 @@
     .footer-grid{grid-template-columns:1fr;gap:36px;}
     .cta-card{padding:40px 28px;}
   }
+  
   @media (max-width:560px){
     .banner-copy{padding:44px 20px 36px;}
     .story-badge{padding:14px 18px;}
+    
+    /* Memaksa 2 kolom di HP untuk section Nilai-nilai */
+    .values-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 12px;
+    }
+    .value-card {
+      padding: 20px 14px; 
+    }
+    .value-icon {
+      width: 48px; height: 48px; margin-bottom: 14px;
+    }
+    .value-icon svg {
+      width: 24px; height: 24px;
+    }
+    .value-card h4 {
+      font-size: 14px; margin-bottom: 8px;
+    }
+    .value-card p {
+      font-size: 12px; line-height: 1.5;
+    }
   }
 </style>
 @endpush

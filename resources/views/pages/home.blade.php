@@ -87,7 +87,7 @@
   .program-card{
     background:#fff;border-radius:var(--radius-lg);padding:36px 30px;color:var(--ink);
     position:relative;overflow:hidden;transition:transform .25s ease, box-shadow .25s ease;
-    display:flex;flex-direction:column; /* Ditambahkan agar tinggi menyesuaikan & rapi */
+    display:flex;flex-direction:column;
   }
   .program-card::before{
     content:'';position:absolute;top:0;right:0;width:0;height:0;
@@ -103,7 +103,7 @@
   .program-card h3{font-size:21px;margin-bottom:10px;}
   .program-card p{
     color:var(--ink-soft);font-size:15px;margin-bottom:24px;
-    flex-grow:1; /* Memastikan teks mendorong tombol ke bawah jika panjang deskripsi berbeda */
+    flex-grow:1;
   }
 
   /* ============ PENGAJAR / LOGOS ============ */
@@ -224,7 +224,7 @@
     .hero-blob{width:280px;height:280px;}
     .why .wrap{grid-template-columns:1fr;gap:40px;}
     .why-visual{height:340px;}
-    .program-grid{grid-template-columns:repeat(2,1fr);} /* Menjadi 2 kolom di tablet */
+    .program-grid{grid-template-columns:repeat(2,1fr);} 
     .logo-grid{grid-template-columns:repeat(2,1fr);}
     .blog-grid{grid-template-columns:1fr;}
     .gallery-grid{grid-template-columns:repeat(2,1fr);}
@@ -233,7 +233,7 @@
     .form-row{grid-template-columns:1fr;}
   }
   @media (max-width:768px){
-    .program-grid{grid-template-columns:1fr;} /* Menjadi 1 kolom di mobile */
+    .program-grid{grid-template-columns:1fr;} 
   }
   @media (max-width:560px){
     .hero-stats{gap:20px;}
@@ -479,18 +479,28 @@
         <span class="eyebrow">Hubungi Kami</span>
         <h2>Punya Pertanyaan? Jangan Ragu Bertanya</h2>
         <p>Tim kami siap membantu menjawab pertanyaan seputar program belajar kapan saja.</p>
+        
+        <!-- Email Kami Dinamis -->
         <div class="contact-row">
           <span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4V4z" stroke="currentColor" stroke-width="1.6"/><path d="M4 6l8 6 8-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <div><strong>Email Kami</strong><span>halo@bimbelsmart.id</span></div>
+          <div><strong>Email Kami</strong><span>{{ $contactInfo->email ?? 'halo@bimbelsmart.id' }}</span></div>
         </div>
+        
+        <!-- Alamat Kantor Dinamis -->
         <div class="contact-row">
           <span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-6.1-7-11a7 7 0 1114 0c0 4.9-7 11-7 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.6"/></svg></span>
-          <div><strong>Kunjungi Kantor</strong><span>Menara Tendean Lantai 17 Unit C, Jalan Kapten Tendean No. 20C, Kelurahan: Kuningan Barat, Kecamatan: Mampang Prapatan, 12720</span></div>
+          <div><strong>Kunjungi Kantor</strong><span>{{ $contactInfo->address ?? 'Menara Tendean Lantai 17 Unit C, Jalan Kapten Tendean No. 20C, Kelurahan: Kuningan Barat, Kecamatan: Mampang Prapatan, 12720' }}</span></div>
         </div>
+        
+        <!-- WhatsApp Admin Dinamis -->
         <div class="contact-row">
           <span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.1-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.7a2 2 0 01-.5 2.1L8 9.7a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.9.3 1.8.5 2.7.6a2 2 0 011.7 2z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <div><strong>WhatsApp Admin</strong><span>+62 858 8148 6381</span></div>
+          <div>
+            <strong>WhatsApp Admin</strong>
+            <span>{!! nl2br(e($contactInfo->phone ?? "085881486381 (Admin Nawal)\n085814010671 (Admin Ayza)")) !!}</span>
+          </div>
         </div>
+        
         <div>
           <strong style="font-size:14.5px;display:block;margin-bottom:8px;">Ikuti Kami</strong>
           <div class="socials">
@@ -537,5 +547,5 @@
 </section>
 @endsection
 
-@push('scripts')
+@push('scripts') 
 @endpush

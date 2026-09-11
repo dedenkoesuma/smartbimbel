@@ -53,7 +53,7 @@ class PageController extends Controller
     {
         // 1. Ambil data Hero & Stats (Dibatasi maksimal 3)
         $hero = HeroSection::where('is_active', true)->first();
-        $stats = Stat::orderBy('id', 'asc')->take(3)->get(); // Tambahkan ->take(3) di sini
+        $stats = Stat::orderBy('id', 'asc')->take(3)->get(); 
 
         // 2. Ambil data Why Us (Kenapa Pilih Kami)
         $whyUs = WhyUsSection::first();
@@ -69,7 +69,13 @@ class PageController extends Controller
             ->take(3)
             ->get();
 
-        return view('pages.home', compact('hero', 'stats', 'whyUs', 'programs', 'universities', 'featuredPosts'));
+        // 4. TAMBAHAN: Ambil data informasi kontak untuk bagian footer/hubungi kami
+        $contactInfo = ContactInfo::first();
+
+        // PASTIKAN 'contactInfo' ditambahkan ke dalam compact()
+        return view('pages.home', compact(
+            'hero', 'stats', 'whyUs', 'programs', 'universities', 'featuredPosts', 'contactInfo'
+        ));
     }
 
     public function layanan()
