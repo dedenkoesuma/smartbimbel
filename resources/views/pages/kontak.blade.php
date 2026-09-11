@@ -181,17 +181,23 @@
 
         <div class="contact-row">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1118 0z" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="10" r="3" stroke="#fff" stroke-width="1.8"/></svg></div>
-          <div><strong>Alamat</strong><span>Menara Tendean Lantai 17 Unit C, Jalan Kapten Tendean No. 20C, Kelurahan: Kuningan Barat, Kecamatan: Mampang Prapatan, 12720</span></div>
+          <div><strong>Alamat</strong><span>{{ $contactInfo->address ?? 'Menara Tendean Lantai 17 Unit C, Jalan Kapten Tendean No. 20C, Kelurahan: Kuningan Barat, Kecamatan: Mampang Prapatan, 12720' }}</span></div>
         </div>
+        
         <div class="contact-row">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.7a2 2 0 01-.5 2.1L8 9.7a16 16 0 006.3 6.3l1.2-1.2a2 2 0 012.1-.5c.9.3 1.8.5 2.7.6a2 2 0 011.7 2.1z" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <div><strong>Telepon / WhatsApp</strong><span>021-7985454 / 0858 8148 6381</span></div>
+          <div>
+            <strong>Telepon / WhatsApp</strong>
+            <span>{!! nl2br(e($contactInfo->phone ?? "085881486381 (Admin Nawal)\n085814010671 (Admin Ayza)")) !!}</span>
+          </div>
         </div>
+        
         <div class="contact-row">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4V4z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 6l8 7 8-7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <div><strong>Email</strong><span>halo@bimbelsmart.id</span></div>
+          <div><strong>Email</strong><span>{{ $contactInfo->email ?? 'halo@bimbelsmart.id' }}</span></div>
         </div>
 
+        <!-- Bagian Sosial Media tetap hardcode -->
         <div class="socials">
             <a href="https://www.instagram.com/bimbelsmart__/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg></a>
             <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none"><path d="M14 9h3V6h-3a3 3 0 00-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14V9z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></a>

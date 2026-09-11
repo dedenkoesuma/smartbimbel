@@ -11,6 +11,7 @@ use App\Models\ContactMessage;
 use App\Models\Post;
 use App\Models\HeroSection;
 use App\Models\WhyUsSection;
+use App\Models\ContactInfo;
 use App\Models\Stat;
 use App\Models\AboutBanner;
 use App\Models\AboutStory;
@@ -23,6 +24,7 @@ use App\Models\AdditionalService;
 use App\Models\JoinStep;
 use App\Models\Faq;
 use App\Models\ContactBanner;
+use App\Models\GalleryHighlight;
 use App\Models\NewsletterSubscriber;
 
 class PageController extends Controller
@@ -83,19 +85,31 @@ class PageController extends Controller
 
     public function galeri()
     {
+        // Ambil data galeri dan kategori (kode asli Anda)
         $galleries = Gallery::where('is_active', true)->orderBy('order')->get();
         $categories = $galleries->pluck('category')->filter()->unique()->values();
 
-        return view('pages.galeri', compact('galleries', 'categories'));
+        // Tambahan: Ambil data untuk Banner Mosaic (GalleryHighlight)
+        $highlights = GalleryHighlight::where('is_active', true)
+            ->orderBy('position', 'asc')
+            ->take(6)
+            ->get();
+
+        // Jangan lupa tambahkan 'highlights' di dalam compact()
+        return view('pages.galeri', compact('galleries', 'categories', 'highlights'));
     }
 
     public function kontak()
     {
-        $banner = ContactBanner::first(); // Panggil data banner kontak
+        $banner = ContactBanner::first(); 
         $programs = Program::orderBy('order', 'asc')->get();
         $faqs = Faq::all();
+        
+        // Ambil data informasi kontak (mengambil baris pertama)
+        $contactInfo = ContactInfo::first();
 
-        return view('pages.kontak', compact('banner', 'programs', 'faqs'));
+        // Tambahkan 'contactInfo' ke dalam compact
+        return view('pages.kontak', compact('banner', 'programs', 'faqs', 'contactInfo'));
     }
 
     public function blog()

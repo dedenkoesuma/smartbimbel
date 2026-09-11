@@ -15,8 +15,8 @@ class AboutValueResource extends Resource
     protected static ?string $model = AboutValue::class;
     protected static ?string $navigationIcon = 'heroicon-o-star';
     protected static ?string $navigationGroup = 'Halaman Tentang Kami';
-    protected static ?string $navigationLabel = 'Nilai-Nilai';
-    protected static ?string $pluralModelLabel = 'Nilai-Nilai';
+    protected static ?string $navigationLabel = 'Smart Value';
+    protected static ?string $pluralModelLabel = 'Smart Value';
 
     public static function form(Form $form): Form
     {

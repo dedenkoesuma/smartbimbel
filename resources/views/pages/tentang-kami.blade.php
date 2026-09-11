@@ -8,7 +8,7 @@
 /* Token, reset, tombol, navbar & mobile-nav dasar sudah ada di assets/style.css */
 
 
-  /* ============ PAGE BANNER (beda dari hero home — panel diagonal) ============ */
+  /* ============ PAGE BANNER ============ */
   .banner{
     background:#fff;overflow:hidden;
   }
@@ -30,18 +30,61 @@
   .breadcrumb .current{font-weight:700;color:#FFD877;}
   .banner-copy .eyebrow{background:rgba(255,255,255,.14);color:#FFD877;}
   .banner-copy h1{font-size:clamp(30px,3.6vw,42px);color:#fff;max-width:460px;margin-bottom:16px;}
-  .banner-copy p.lead{color:rgba(255,255,255,.78);max-width:420px;font-size:16px;}
+
+  /* FIX BANNER LEAD TEXT */
+  .banner-copy .lead-text{
+    position:relative;
+    max-height:110px; /* Muat sekitar 3-4 baris ringkas */
+    overflow:hidden;
+    transition:max-height .45s ease;
+    color:rgba(255,255,255,.85);
+    max-width:460px;
+    font-size:16px;
+    line-height:1.6;
+    margin-top:4px;
+    /* Pake mask-image biar fade mulus tanpa merusak gradient background */
+    -webkit-mask-image: linear-gradient(180deg, #000 50%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 50%, transparent 100%);
+  }
+  .banner-copy .lead-text.expanded{ 
+    max-height:2000px;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .banner-toggle{
+    margin-top:14px;
+    background:none;
+    border:none;
+    padding:0;
+    color:#FFD877;
+    font-weight:700;
+    font-size:14.5px;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    cursor:pointer;
+    transition:opacity .2s ease;
+    width: fit-content;
+  }
+  .banner-toggle:hover{ opacity:.8; }
+  .banner-toggle svg{
+    width:16px;
+    height:16px;
+    transition:transform .3s ease;
+  }
+  .banner-toggle.is-expanded svg{ transform:rotate(180deg); }
 
   .banner-photo {
     position: relative;
     clip-path: polygon(14% 0, 100% 0, 100% 100%, 0% 100%);
-    height: 100%; /* Memaksa kontainer mengikuti tinggi grid teks */
+    height: 100%;
   }
   .banner-photo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    position: absolute; /* Trik agar gambar tidak memanjangkan baris */
+    position: absolute;
     top: 0;
     left: 0;
   }
@@ -72,6 +115,32 @@
   .story-copy > p{color:var(--ink-soft);margin-bottom:18px;max-width:520px;}
   .story-copy > p:last-of-type{margin-bottom:0;}
 
+  /* FIX CERITA KAMI TEXT */
+  .story-copy .story-text{
+    position:relative;
+    max-height: 220px; /* Dinaikkan agar muat 2-3 paragraf awal dari Filament */
+    overflow:hidden;
+    transition:max-height .45s ease;
+  }
+  .story-copy .story-text.expanded{ max-height:2000px; }
+  .story-copy .story-text::after{
+    content:'';
+    position:absolute;left:0;right:0;bottom:0;
+    height:50px; /* Dikecilkan dari 90px agar tidak menutupi seluruh teks */
+    background:linear-gradient(180deg, rgba(255,255,255,0) 0%, #ffffff 90%);
+    pointer-events:none;
+    transition:opacity .3s ease;
+  }
+  .story-copy .story-text.expanded::after{ opacity:0; }
+
+  .story-toggle{
+    margin-top:16px;background:none;border:none;padding:0;
+    color:var(--blue);font-weight:700;font-size:14.5px;
+    display:inline-flex;align-items:center;gap:6px;cursor:pointer;
+  }
+  .story-toggle svg{width:16px;height:16px;transition:transform .3s ease;}
+  .story-toggle.is-expanded svg{transform:rotate(180deg);}
+
   /* ============ VISI MISI ============ */
   .vm{padding:0 0 100px;}
   .vm-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
@@ -98,7 +167,7 @@
 
   /* ============ NILAI-NILAI ============ */
   .values{padding:100px 0;background:var(--blue-tint);}
-  .values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .values-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;}
   .value-card{
     background:#fff;border-radius:var(--radius-md);padding:32px 26px;text-align:center;
     box-shadow:var(--shadow);transition:transform .22s ease;
@@ -169,9 +238,6 @@
   .cta-card p{color:rgba(255,255,255,.8);max-width:520px;margin:0 auto 30px;position:relative;}
   .cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;}
 
-  /* Style footer & reveal dasar sudah ada di assets/style.css */
-
-
   /* ============ RESPONSIVE ============ */
   @media (max-width:980px){
     .nav-links{display:none;}
@@ -209,7 +275,12 @@
       <div class="banner-dots"></div>
       <div class="breadcrumb"><a href="{{ route('home') }}#home">Home</a><span>/</span><span class="current">Tentang Kami</span></div>
       <h1>{{ $banner->title }}</h1>
-      <p class="lead">{{ $banner->description }}</p>
+
+      <p class="lead-text" id="bannerText">{{ $banner->description }}</p>
+      <button type="button" class="banner-toggle" id="bannerToggle">
+        <span>Baca Selengkapnya</span>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </div>
     <div class="banner-photo reveal">
       @if($banner->getFirstMediaUrl('about_banner'))
@@ -246,12 +317,16 @@
     <div class="story-copy reveal">
       <span class="eyebrow">{{ $story->eyebrow }}</span>
       <h2>{{ $story->title }}</h2>
-      
+
       {{-- Karena menggunakan Rich Editor Filament, kita panggil pakai tag kurung kurawal tanda seru agar tag HTML terbaca --}}
-      <div style="color: var(--ink-soft); line-height: 1.75; display: grid; gap: 18px;">
+      <div class="story-text" id="storyText" style="color: var(--ink-soft); line-height: 1.75; display: grid; gap: 18px;">
         {!! $story->description !!}
       </div>
-      
+
+      <button type="button" class="story-toggle" id="storyToggle">
+        <span>Baca Selengkapnya</span>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </div>
   </div>
 </section>
@@ -304,7 +379,7 @@
     <div class="section-head center reveal">
       <span class="eyebrow">Nilai-Nilai Kami</span>
       <h2>Prinsip yang Kami Pegang Teguh</h2>
-      <p>Empat nilai ini menjadi fondasi dalam setiap interaksi kami dengan siswa dan orang tua.</p>
+      <p>Lima nilai S.M.A.R.T menjadi landasan utama dalam setiap proses pembelajaran dan pendampingan siswa kami.</p>
     </div>
     <div class="values-grid reveal">
       @forelse($values as $value)
@@ -440,5 +515,42 @@
     });
   }, { threshold: 0.4 });
   counters.forEach(el => counterIO.observe(el));
+
+  // Toggle baca selengkapnya untuk Banner (Mengenal Lebih Dekat)
+  const bannerText = document.getElementById('bannerText');
+  const bannerToggle = document.getElementById('bannerToggle');
+
+  if (bannerText && bannerToggle) {
+    requestAnimationFrame(() => {
+      if (bannerText.scrollHeight <= bannerText.clientHeight + 10) {
+        bannerToggle.style.display = 'none';
+      }
+    });
+
+    bannerToggle.addEventListener('click', () => {
+      const expanded = bannerText.classList.toggle('expanded');
+      bannerToggle.classList.toggle('is-expanded', expanded);
+      bannerToggle.querySelector('span').textContent = expanded ? 'Tutup' : 'Baca Selengkapnya';
+    });
+  }
+
+  // Toggle baca selengkapnya untuk Cerita Kami
+  const storyText = document.getElementById('storyText');
+  const storyToggle = document.getElementById('storyToggle');
+
+  if (storyText && storyToggle) {
+    // Sembunyikan tombol kalau konten pendek dan nggak perlu di-collapse
+    requestAnimationFrame(() => {
+      if (storyText.scrollHeight <= storyText.clientHeight + 10) {
+        storyToggle.style.display = 'none';
+      }
+    });
+
+    storyToggle.addEventListener('click', () => {
+      const expanded = storyText.classList.toggle('expanded');
+      storyToggle.classList.toggle('is-expanded', expanded);
+      storyToggle.querySelector('span').textContent = expanded ? 'Tutup' : 'Baca Selengkapnya';
+    });
+  }
 </script>
 @endpush
