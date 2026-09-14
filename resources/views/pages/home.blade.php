@@ -433,6 +433,7 @@
 @endif
 
 <!-- ============ GALERI ============ -->
+@if($galleryItems->count())
 <section class="gallery" id="galeri">
   <div class="wrap">
     <div class="section-head center reveal">
@@ -441,35 +442,16 @@
       <p>Momen-momen seru belajar dan keberhasilan siswa-siswi kami.</p>
     </div>
     <div class="gallery-grid reveal">
-      <div class="gallery-item g1">
-        <img src="https://images.unsplash.com/photo-1568667256549-094345857637?auto=format&fit=crop&w=800&q=80" alt="Fasilitas perpustakaan dan ruang baca">
-        <div class="tint"></div>
-        <span class="caption">Fasilitas Belajar</span>
-      </div>
-      
-      <div class="gallery-item g2">
-        <!-- Try Out Bersama: Tangan sedang menulis di atas kertas ujian -->
-        <img src="https://images.pexels.com/photos/3729557/pexels-photo-3729557.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Mengerjakan soal try out">
-        <div class="tint"></div>
-        <span class="caption">Try Out Bersama</span>
-      </div>
-      
-      <div class="gallery-item g3">
-        <!-- Kunjungan Kampus: Tampak luar gedung dengan arsitektur klasik -->
-        <img src="https://images.pexels.com/photos/356065/pexels-photo-356065.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tampak luar gedung kampus universitas">
-        <div class="tint"></div>
-        <span class="caption">Kunjungan Kampus</span>
-      </div>
-      
-      <div class="gallery-item g4">
-        <!-- Wisuda Angkatan: Topi toga dan ijazah di atas meja -->
-        <img src="https://images.pexels.com/photos/1205651/pexels-photo-1205651.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Topi toga dan ijazah">
-        <div class="tint"></div>
-        <span class="caption">Wisuda Angkatan</span>
-      </div>
+      @foreach($galleryItems as $item)
+        <div class="gallery-item">
+          <img src="{{ $item->getFirstMediaUrl('gallery_images', 'thumb') ?: $item->getFirstMediaUrl('gallery_images') }}" alt="Galeri Bimbel Smart">
+          <div class="tint"></div>
+        </div>
+      @endforeach
     </div>
   </div>
 </section>
+@endif
 
 <!-- ============ HUBUNGI KAMI ============ -->
 <section class="contact" id="kontak">

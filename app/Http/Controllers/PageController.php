@@ -12,6 +12,7 @@ use App\Models\Post;
 use App\Models\HeroSection;
 use App\Models\WhyUsSection;
 use App\Models\ContactInfo;
+use App\Models\GalleryItem;
 use App\Models\Stat;
 use App\Models\AboutBanner;
 use App\Models\AboutStory;
@@ -69,12 +70,17 @@ class PageController extends Controller
             ->take(3)
             ->get();
 
-        // 4. TAMBAHAN: Ambil data informasi kontak untuk bagian footer/hubungi kami
+        // 4. Data informasi kontak
         $contactInfo = ContactInfo::first();
 
-        // PASTIKAN 'contactInfo' ditambahkan ke dalam compact()
+        // 5. TAMBAHAN: Galeri Kegiatan (dari GalleryItem, dikelola via Filament)
+        $galleryItems = GalleryItem::where('is_active', true)
+            ->orderBy('order')
+            ->take(4)
+            ->get();
+
         return view('pages.home', compact(
-            'hero', 'stats', 'whyUs', 'programs', 'universities', 'featuredPosts', 'contactInfo'
+            'hero', 'stats', 'whyUs', 'programs', 'universities', 'featuredPosts', 'contactInfo', 'galleryItems'
         ));
     }
 
