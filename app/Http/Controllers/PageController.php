@@ -27,6 +27,7 @@ use App\Models\Faq;
 use App\Models\ContactBanner;
 use App\Models\GalleryHighlight;
 use App\Models\NewsletterSubscriber;
+use App\Models\LearningVideo;
 
 class PageController extends Controller
 {
@@ -109,6 +110,25 @@ class PageController extends Controller
 
         // Jangan lupa tambahkan 'highlights' di dalam compact()
         return view('pages.galeri', compact('galleries', 'categories', 'highlights'));
+    }
+
+    public function videoBelajar()
+    {
+        $featured = LearningVideo::where('is_active', true)
+            ->where('is_featured', true)
+            ->orderBy('order')
+            ->orderByDesc('published_at')
+            ->first();
+
+        $videos = LearningVideo::where('is_active', true)
+            ->orderBy('order')
+            ->orderByDesc('published_at')
+            ->get();
+
+        $categories = $videos->pluck('category')->filter()->unique()->values();
+        $gradeLevels = $videos->pluck('grade_level')->filter()->unique()->values();
+
+        return view('pages.video-belajar', compact('featured', 'videos', 'categories', 'gradeLevels'));
     }
 
     public function kontak()

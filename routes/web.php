@@ -7,6 +7,7 @@ use App\Http\Controllers\PageController;
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/tentang-kami', [PageController::class, 'tentangKami'])->name('tentang-kami');
 Route::get('/layanan', [PageController::class, 'layanan'])->name('layanan');
+Route::get('/video-belajar', [PageController::class, 'videoBelajar'])->name('video-belajar');
 Route::get('/galeri', [PageController::class, 'galeri'])->name('galeri');
 Route::get('/kontak', [PageController::class, 'kontak'])->name('kontak');
 

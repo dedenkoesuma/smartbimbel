@@ -60,6 +60,7 @@ class AdminPanelProvider extends PanelProvider
                 'Halaman Beranda',
                 'Halaman Tentang Kami',
                 'Halaman Layanan',
+                'Halaman Video Belajar',
                 'Halaman Galeri',
                 'Halaman Blog',
                 'Halaman Kontak',

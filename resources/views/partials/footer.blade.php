@@ -13,6 +13,7 @@
           <li><a href="{{ route('home') }}#home">Home</a></li>
           <li><a href="{{ route('tentang-kami') }}">Tentang Kami</a></li>
           <li><a href="{{ route('layanan') }}">Layanan</a></li>
+          <li><a href="{{ route('video-belajar') }}">Video Belajar</a></li>
           <li><a href="{{ route('galeri') }}">Galeri</a></li>
           <li><a href="{{ route('blog') }}">Blog</a></li>
         </ul>

@@ -14,6 +14,7 @@
       <a href="{{ route('home') }}#home" data-nav="home">Home</a>
       <a href="{{ route('tentang-kami') }}" data-nav="tentang">Tentang Kami</a>
       <a href="{{ route('layanan') }}" data-nav="layanan">Layanan</a>
+      <a href="{{ route('video-belajar') }}" data-nav="video">Video Belajar</a>
       <a href="{{ route('galeri') }}" data-nav="galeri">Galeri</a>
       <a href="{{ route('blog') }}" data-nav="blog">Blog</a>
       <a href="{{ route('kontak') }}" data-nav="kontak">Kontak</a>
@@ -43,6 +44,7 @@
   <a href="{{ route('home') }}#home" class="mnav-link" data-nav="home">Home</a>
   <a href="{{ route('tentang-kami') }}" class="mnav-link" data-nav="tentang">Tentang Kami</a>
   <a href="{{ route('layanan') }}" class="mnav-link" data-nav="layanan">Layanan</a>
+  <a href="{{ route('video-belajar') }}" class="mnav-link" data-nav="video">Video Belajar</a>
   <a href="{{ route('galeri') }}" class="mnav-link" data-nav="galeri">Galeri</a>
   <a href="{{ route('blog') }}" class="mnav-link" data-nav="blog">Blog</a>
   <a href="{{ route('kontak') }}" class="mnav-link" data-nav="kontak">Kontak</a>

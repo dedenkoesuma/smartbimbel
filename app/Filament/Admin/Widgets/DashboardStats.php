@@ -8,6 +8,7 @@ use App\Models\Program;
 use App\Models\TeamMember;
 use App\Models\University;
 use App\Models\ContactMessage;
+use App\Models\LearningVideo;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
@@ -21,6 +22,12 @@ class DashboardStats extends BaseWidget
                 ->descriptionIcon('heroicon-m-newspaper')
                 ->color('warning')
                 ->url(route('filament.admin.resources.posts.index')),
+
+            Stat::make('Video Pembelajaran', LearningVideo::count())
+                ->description('Video pembahasan soal & materi')
+                ->descriptionIcon('heroicon-m-play-circle')
+                ->color('success')
+                ->url(route('filament.admin.resources.learning-videos.index')),
 
             Stat::make('Total Galeri', Gallery::count())
                 ->description('Foto kegiatan tersimpan')
